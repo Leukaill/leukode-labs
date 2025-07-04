@@ -20,7 +20,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="pt-24 pb-20 min-h-screen flex items-center relative overflow-hidden neural-network-bg">
+    <section className="pt-20 pb-16 md:pt-24 md:pb-20 min-h-screen flex items-center relative overflow-hidden neural-network-bg">
       <ParticleBackground />
       {/* Cinematic Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
@@ -31,12 +31,13 @@ export const HeroSection = () => {
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center">
-          <div className="mb-16 hero-logo">
-            <DivineLogo size="xl" />
+          <div className="mb-8 md:mb-16 hero-logo">
+            <DivineLogo size="lg" className="md:hidden" />
+            <DivineLogo size="xl" className="hidden md:block" />
           </div>
           
           <div className="cinematic-entrance" style={{ animationDelay: '0.3s' }}>
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-thin mb-8 leading-tight tracking-tight text-[#080000]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-thin mb-6 md:mb-8 leading-tight tracking-tight text-[#080000]">
               The <span className="font-light italic">Future</span> of
               <br />
               <span className="font-semibold from-[hsl(var(--google-blue))] via-[hsl(var(--google-green))] to-[hsl(var(--google-yellow))] bg-clip-text neural-glow text-[#080808b0] bg-[#ff000000]">
@@ -46,7 +47,7 @@ export const HeroSection = () => {
           </div>
           
           <div className="cinematic-entrance" style={{ animationDelay: '0.6s' }}>
-            <p className="text-2xl md:text-3xl mb-16 max-w-5xl mx-auto font-light leading-relaxed text-[#4f4a4a]">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-12 md:mb-16 max-w-3xl md:max-w-5xl mx-auto font-light leading-relaxed text-[#4f4a4a]">
               We craft <span className="font-medium text-blue-300">impossible</span> digital experiences that 
               transcend expectations and redefine what's possible in web development.
             </p>

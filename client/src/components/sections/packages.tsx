@@ -86,18 +86,18 @@ export const PackagesSection = () => {
   };
 
   return (
-    <section id="packages" className="py-32 relative overflow-hidden bg-gradient-to-br from-slate-50 to-white">
+    <section id="packages" className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-br from-slate-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-8 tracking-tight">
+        <div className="text-center mb-12 md:mb-20">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 md:mb-8 tracking-tight">
             Professional <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">Solutions</span>
           </h2>
-          <p className="text-2xl text-slate-700 max-w-4xl mx-auto font-medium leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-slate-700 max-w-3xl md:max-w-4xl mx-auto font-medium leading-relaxed">
             Choose the perfect package for your business needs. Each solution delivers exceptional results.
           </p>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
           {packages.map((pkg, index) => {
             const IconComponent = pkg.icon;
             return (
@@ -118,16 +118,16 @@ export const PackagesSection = () => {
                   <div className={`relative bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105 h-full cursor-pointer ${pkg.popular ? 'ring-2 ring-indigo-500/20' : ''}`}>
                     <div className="p-8">
                     <div className="text-center mb-8">
-                      <div className={`w-20 h-20 bg-gradient-to-br ${pkg.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
-                        <IconComponent className="w-10 h-10 text-white" />
+                      <div className={`w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br ${pkg.gradient} rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
+                        <IconComponent className="w-8 h-8 md:w-10 md:h-10 text-white" />
                       </div>
-                      <h3 className="text-3xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                      <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-slate-900 mb-2 md:mb-3 group-hover:text-blue-600 transition-colors duration-300">
                         {pkg.name}
                       </h3>
-                      <p className="text-slate-600 mb-6 font-medium text-lg">{pkg.description}</p>
-                      <div className="mb-8">
-                        <span className="text-5xl font-bold text-slate-900">{pkg.price}</span>
-                        <span className="text-slate-600 ml-2 text-lg">project</span>
+                      <p className="text-slate-600 mb-4 md:mb-6 font-medium text-base md:text-lg">{pkg.description}</p>
+                      <div className="mb-6 md:mb-8">
+                        <span className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900">{pkg.price}</span>
+                        <span className="text-slate-600 ml-2 text-base md:text-lg">project</span>
                       </div>
                     </div>
                     

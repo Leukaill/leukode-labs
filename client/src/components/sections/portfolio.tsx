@@ -25,16 +25,16 @@ export const PortfolioSection = () => {
   }
 
   return (
-    <section id="portfolio" className="portfolio-section py-32 relative overflow-hidden bg-gradient-to-b from-white via-[hsl(var(--gray-50))] to-white">
+    <section id="portfolio" className="portfolio-section py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-white via-[hsl(var(--gray-50))] to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 md:mb-20">
           <div className="cinematic-entrance">
-            <h2 className="text-5xl md:text-7xl font-thin text-gray-900 mb-8 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-thin text-gray-900 mb-6 md:mb-8 tracking-tight">
               Impossible <span className="font-medium italic bg-gradient-to-r from-blue-600 via-green-600 to-yellow-600 bg-clip-text text-transparent">Realities</span>
             </h2>
           </div>
           <div className="cinematic-entrance" style={{ animationDelay: '0.3s' }}>
-            <p className="text-2xl text-[hsl(var(--gray-700))] max-w-4xl mx-auto font-light leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-[hsl(var(--gray-700))] max-w-3xl md:max-w-4xl mx-auto font-light leading-relaxed">
               Each project pushes the boundaries of what's possible. These aren't just websites—they're digital revolutions.
             </p>
           </div>

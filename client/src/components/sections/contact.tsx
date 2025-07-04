@@ -62,23 +62,23 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-32 relative overflow-hidden neural-network-bg">
+    <section id="contact" className="py-20 md:py-32 relative overflow-hidden neural-network-bg">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 md:mb-20">
           <div className="cinematic-entrance">
-            <h2 className="text-5xl md:text-7xl font-thin mb-8 tracking-tight text-[#120000]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-thin mb-6 md:mb-8 tracking-tight text-[#120000]">
               Get In <span className="font-medium italic text-blue-300">Touch</span>
             </h2>
           </div>
           <div className="cinematic-entrance" style={{ animationDelay: '0.3s' }}>
-            <p className="text-2xl text-black max-w-4xl mx-auto font-light leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-black max-w-3xl md:max-w-4xl mx-auto font-light leading-relaxed">
               Ready to start your next project? Let's discuss how we can bring your vision to life.
             </p>
           </div>
         </div>
         
         <div className="cinematic-entrance" style={{ animationDelay: '0.6s' }}>
-          <div className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-12 shadow-2xl">
+          <div className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 md:p-8 lg:p-12 shadow-2xl">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <div className="grid md:grid-cols-2 gap-8">

@@ -55,13 +55,13 @@ const services = [
 
 export const ServicesSection = () => {
   return (
-    <section id="services" className="services-section py-32 relative overflow-hidden bg-slate-50">
+    <section id="services" className="services-section py-20 md:py-32 relative overflow-hidden bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-8 tracking-tight">
+        <div className="text-center mb-12 md:mb-20">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 md:mb-8 tracking-tight">
             Our <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">Services</span>
           </h2>
-          <p className="text-2xl text-slate-700 max-w-4xl mx-auto font-medium leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-slate-700 max-w-3xl md:max-w-4xl mx-auto font-medium leading-relaxed">
             We deliver comprehensive web solutions that drive business growth and exceed expectations.
           </p>
         </div>
@@ -79,9 +79,9 @@ export const ServicesSection = () => {
                   variant="impossible" 
                   className="service-card text-center h-full group cursor-pointer"
                 >
-                  <div className="relative mb-8">
-                    <div className={`w-20 h-20 bg-gradient-to-br ${service.gradient} rounded-3xl flex items-center justify-center mx-auto levitating premium-shadow-xl group-hover:scale-110 transition-transform duration-500`}>
-                      <IconComponent className="w-10 h-10 text-white" />
+                  <div className="relative mb-6 md:mb-8">
+                    <div className={`w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br ${service.gradient} rounded-3xl flex items-center justify-center mx-auto levitating premium-shadow-xl group-hover:scale-110 transition-transform duration-500`}>
+                      <IconComponent className="w-8 h-8 md:w-10 md:h-10 text-white" />
                     </div>
                   
                   {/* Floating Particles */}
