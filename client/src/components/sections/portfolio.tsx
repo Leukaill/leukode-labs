@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { Link } from 'wouter';
 import { GlassmorphismCard } from '@/components/ui/glassmorphism-card';
 import { MagneticButton } from '@/components/ui/magnetic-button';
 import type { Project } from '@/types/portfolio';
@@ -120,18 +121,20 @@ export const PortfolioSection = () => {
             
             <div className="text-center mt-16">
               <div className="cinematic-entrance" style={{ animationDelay: '0.6s' }}>
-                <MagneticButton 
-                  variant="impossible"
-                  size="xl"
-                  magneticStrength={0.6}
-                >
-                  <span className="flex items-center gap-3">
-                    <span>Explore All Impossibilities</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M7 17L17 7M17 7H7M17 7V17"/>
-                    </svg>
-                  </span>
-                </MagneticButton>
+                <Link href="/portfolio">
+                  <MagneticButton 
+                    variant="impossible"
+                    size="xl"
+                    magneticStrength={0.6}
+                  >
+                    <span className="flex items-center gap-3">
+                      <span>Explore All Impossibilities</span>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                      </svg>
+                    </span>
+                  </MagneticButton>
+                </Link>
               </div>
             </div>
           </>
