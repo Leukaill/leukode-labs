@@ -100,15 +100,15 @@ export default function PortfolioShowcase() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project, index) => (
-            <div
-              key={project.id}
-              className="group"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <GlassmorphismCard 
-                variant="impossible" 
-                className="h-full overflow-hidden hover:scale-105 transition-all duration-500 cursor-pointer"
+            <Link key={project.id} href={`/project/${project.id}`}>
+              <div
+                className="group"
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
+                <GlassmorphismCard 
+                  variant="impossible" 
+                  className="h-full overflow-hidden hover:scale-105 transition-all duration-500 cursor-pointer"
+                >
                 {/* Project Image */}
                 <div className="relative h-64 overflow-hidden rounded-t-2xl">
                   <img
@@ -170,8 +170,9 @@ export default function PortfolioShowcase() {
                     </MagneticButton>
                   </div>
                 </div>
-              </GlassmorphismCard>
-            </div>
+                </GlassmorphismCard>
+              </div>
+            </Link>
           ))}
         </div>
 

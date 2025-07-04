@@ -3,12 +3,14 @@ import { Link } from 'wouter';
 import { MagneticButton } from '@/components/ui/magnetic-button';
 import { DivineLogo } from '@/components/ui/divine-logo';
 import { SearchModal } from '@/components/ui/search-modal';
+import { NewsletterModal } from '@/components/ui/newsletter-modal';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isNewsletterOpen, setIsNewsletterOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -117,6 +119,17 @@ export const Navbar = () => {
               >
                 Portfolio
               </button>
+              <Link href="/about">
+                <button className="text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm">
+                  About
+                </button>
+              </Link>
+              <button 
+                onClick={() => setIsNewsletterOpen(true)}
+                className="text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm"
+              >
+                Newsletter
+              </button>
               
               {/* Search Icon */}
               <button 
@@ -180,6 +193,23 @@ export const Navbar = () => {
               >
                 Portfolio
               </button>
+              <Link href="/about">
+                <button 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-left text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm py-2"
+                >
+                  About
+                </button>
+              </Link>
+              <button 
+                onClick={() => {
+                  setIsNewsletterOpen(true);
+                  setIsMenuOpen(false);
+                }}
+                className="text-left text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm py-2"
+              >
+                Newsletter
+              </button>
               <div className="pt-2">
                 <MagneticButton 
                   variant="primary"
@@ -201,6 +231,9 @@ export const Navbar = () => {
 
       {/* Search Modal */}
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      
+      {/* Newsletter Modal */}
+      <NewsletterModal isOpen={isNewsletterOpen} onClose={() => setIsNewsletterOpen(false)} />
     </>
   );
 };

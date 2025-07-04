@@ -1,6 +1,10 @@
+import { useState } from 'react';
 import { Link } from 'wouter';
+import { NewsletterModal } from '@/components/ui/newsletter-modal';
 
 export const Footer = () => {
+  const [isNewsletterOpen, setIsNewsletterOpen] = useState(false);
+  
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -81,12 +85,11 @@ export const Footer = () => {
             <h3 className="text-lg font-medium mb-6">Company</h3>
             <ul className="space-y-3">
               <li>
-                <button 
-                  onClick={() => scrollToSection('why-us')}
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
-                >
-                  About Us
-                </button>
+                <Link href="/about">
+                  <button className="text-gray-300 hover:text-white transition-colors duration-200">
+                    About Us
+                  </button>
+                </Link>
               </li>
               <li>
                 <button 
@@ -112,6 +115,14 @@ export const Footer = () => {
                   Contact
                 </button>
               </li>
+              <li>
+                <button 
+                  onClick={() => setIsNewsletterOpen(true)}
+                  className="text-gray-300 hover:text-white transition-colors duration-200"
+                >
+                  Newsletter
+                </button>
+              </li>
             </ul>
           </div>
           
@@ -121,6 +132,9 @@ export const Footer = () => {
           <p>&copy; 2025 Arc Labs. All rights reserved. Built with cutting-edge technology and attention to detail.</p>
         </div>
       </div>
+      
+      {/* Newsletter Modal */}
+      <NewsletterModal isOpen={isNewsletterOpen} onClose={() => setIsNewsletterOpen(false)} />
     </footer>
   );
 };

@@ -52,46 +52,56 @@ export const WhyUsModal = ({ isOpen, onClose, feature }: WhyUsModalProps) => {
       {/* Modal Content */}
       <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto liquid-glassmorphism rounded-3xl border border-white/20 shadow-2xl">
         {/* Header */}
-        <div className="sticky top-0 z-10 liquid-glassmorphism border-b border-white/10 p-6">
+        <div className="sticky top-0 z-10 bg-gradient-to-r from-green-600/20 to-blue-600/20 backdrop-blur-lg border-b border-white/20 p-8">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="text-blue-600">{feature.icon}</div>
-              <h2 className="text-2xl font-bold text-black/90">{feature.title}</h2>
+            <div className="flex items-center space-x-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-500 rounded-2xl flex items-center justify-center text-white shadow-xl">
+                {feature.icon}
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold text-white mb-2">{feature.title}</h2>
+                <p className="text-white/80 text-sm">Our Competitive Advantage</p>
+              </div>
             </div>
             <button
               onClick={onClose}
-              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 flex items-center justify-center text-black/70 hover:text-black/90"
+              className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-200 flex items-center justify-center text-white/70 hover:text-white backdrop-blur-sm border border-white/20"
             >
-              <X className="w-5 h-5" />
+              <X className="w-6 h-6" />
             </button>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-8">
+        <div className="p-8 space-y-10">
           {/* Description */}
-          <div>
-            <p className="text-black/80 text-lg leading-relaxed">{feature.description}</p>
+          <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
+            <p className="text-white/90 text-lg leading-relaxed">{feature.description}</p>
           </div>
 
           {/* Metrics */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {feature.metrics.map((metric, index) => (
-              <div key={index} className="text-center liquid-glassmorphism rounded-xl p-4 border border-white/10">
-                <div className="text-2xl font-bold text-blue-600 mb-1">{metric.value}</div>
-                <div className="text-sm text-black/70">{metric.label}</div>
+              <div key={index} className="text-center bg-gradient-to-br from-white/10 to-white/5 rounded-2xl p-6 border border-white/20 backdrop-blur-sm">
+                <div className="text-3xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent mb-2">
+                  {metric.value}
+                </div>
+                <div className="text-sm text-white/70 font-medium">{metric.label}</div>
               </div>
             ))}
           </div>
 
           {/* Details */}
           <div>
-            <h3 className="text-xl font-semibold text-black/90 mb-4">Why This Matters</h3>
-            <div className="space-y-3">
+            <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
+              <div className="w-1 h-8 bg-gradient-to-b from-green-500 to-blue-500 rounded-full mr-4"></div>
+              Why This Matters
+            </h3>
+            <div className="space-y-4">
               {feature.details.map((detail, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-black/80">{detail}</span>
+                <div key={index} className="flex items-start space-x-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                  <div className="w-3 h-3 bg-gradient-to-r from-green-500 to-blue-500 rounded-full mt-1 flex-shrink-0" />
+                  <span className="text-white/80 leading-relaxed">{detail}</span>
                 </div>
               ))}
             </div>
@@ -99,12 +109,15 @@ export const WhyUsModal = ({ isOpen, onClose, feature }: WhyUsModalProps) => {
 
           {/* Achievements */}
           <div>
-            <h3 className="text-xl font-semibold text-black/90 mb-4">Our Track Record</h3>
-            <div className="space-y-3">
+            <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
+              <div className="w-1 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full mr-4"></div>
+              Our Track Record
+            </h3>
+            <div className="space-y-4">
               {feature.achievements.map((achievement, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-black/80">{achievement}</span>
+                <div key={index} className="flex items-start space-x-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                  <div className="w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mt-1 flex-shrink-0" />
+                  <span className="text-white/80 leading-relaxed">{achievement}</span>
                 </div>
               ))}
             </div>
@@ -112,13 +125,16 @@ export const WhyUsModal = ({ isOpen, onClose, feature }: WhyUsModalProps) => {
 
           {/* Client Benefits */}
           <div>
-            <h3 className="text-xl font-semibold text-black/90 mb-4">What You Get</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
+              <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full mr-4"></div>
+              What You Get
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {feature.clientBenefits.map((benefit, index) => (
-                <div key={index} className="liquid-glassmorphism rounded-xl p-4 border border-white/10">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-gradient-to-r from-green-600 to-blue-600 rounded-full mt-2 flex-shrink-0" />
-                    <span className="text-black/80">{benefit}</span>
+                <div key={index} className="bg-gradient-to-br from-blue-600/10 to-cyan-600/10 rounded-xl p-6 border border-white/20 backdrop-blur-sm">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-1 flex-shrink-0" />
+                    <span className="text-white/80 leading-relaxed">{benefit}</span>
                   </div>
                 </div>
               ))}
