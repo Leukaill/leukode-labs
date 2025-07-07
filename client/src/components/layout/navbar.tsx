@@ -5,13 +5,10 @@ import { MagneticButton } from '@/components/ui/magnetic-button';
 import { DivineLogo } from '@/components/ui/divine-logo';
 import { SearchModal } from '@/components/ui/search-modal';
 import { NewsletterModal } from '@/components/ui/newsletter-modal';
-import { LanguageSwitcher } from '@/components/ui/language-switcher';
 import { LocationMap } from '@/components/ui/location-map';
 import { MagnifyingGlassIcon, MapPinIcon } from '@heroicons/react/24/outline';
-import { useTranslation } from '@/hooks/use-translation';
 
 export const Navbar = () => {
-  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -167,9 +164,7 @@ export const Navbar = () => {
                     className="text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm relative group"
                   >
                     {section === 'why-us' ? 'Why Us' : 
-                     section === 'packages' ? t.nav.packages : 
-                     section === 'services' ? t.nav.services :
-                     section === 'portfolio' ? t.nav.portfolio :
+                     section === 'packages' ? 'Solutions' : 
                      section.charAt(0).toUpperCase() + section.slice(1)}
                     <motion.div 
                       className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"
@@ -186,7 +181,7 @@ export const Navbar = () => {
                 >
                   <Link href="/about">
                     <button className="text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm relative group">
-                      {t.nav.about}
+                      About
                       <motion.div 
                         className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"
                         whileHover={{ width: '100%' }}
@@ -204,7 +199,7 @@ export const Navbar = () => {
                   onClick={() => setIsNewsletterOpen(true)}
                   className="text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm"
                 >
-                  {t.nav.newsletter}
+                  Newsletter
                 </motion.button>
                 
                 <motion.button
@@ -218,14 +213,6 @@ export const Navbar = () => {
                 >
                   <MagnifyingGlassIcon className="w-5 h-5" />
                 </motion.button>
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.75 }}
-                >
-                  <LanguageSwitcher variant="compact" />
-                </motion.div>
                 
                 <motion.div
                   initial={{ opacity: 0, scale: 0 }}
@@ -238,7 +225,7 @@ export const Navbar = () => {
                     onClick={() => scrollToSection('contact')}
                     magneticStrength={0.5}
                   >
-                    {t.hero.cta}
+                    Start Project
                   </MagneticButton>
                 </motion.div>
               </motion.div>
@@ -273,9 +260,7 @@ export const Navbar = () => {
                     className="text-left text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm py-2"
                   >
                     {section === 'why-us' ? 'Why Us' : 
-                     section === 'packages' ? t.nav.packages : 
-                     section === 'services' ? t.nav.services :
-                     section === 'portfolio' ? t.nav.portfolio :
+                     section === 'packages' ? 'Solutions' : 
                      section.charAt(0).toUpperCase() + section.slice(1)}
                   </motion.button>
                 ))}
@@ -290,7 +275,7 @@ export const Navbar = () => {
                       onClick={() => setIsMenuOpen(false)}
                       className="text-left text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm py-2"
                     >
-                      {t.nav.about}
+                      About
                     </button>
                   </Link>
                 </motion.div>
@@ -306,17 +291,8 @@ export const Navbar = () => {
                   }}
                   className="text-left text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm py-2"
                 >
-                  {t.nav.newsletter}
+                  Newsletter
                 </motion.button>
-
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: 0.65 }}
-                  className="py-2"
-                >
-                  <LanguageSwitcher variant="compact" />
-                </motion.div>
                 
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
@@ -334,7 +310,7 @@ export const Navbar = () => {
                     className="w-full"
                     magneticStrength={0.3}
                   >
-                    {t.hero.cta}
+                    Start Project
                   </MagneticButton>
                 </motion.div>
               </div>

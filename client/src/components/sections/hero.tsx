@@ -3,13 +3,10 @@ import { MagneticButton } from '@/components/ui/magnetic-button';
 import { DivineLogo } from '@/components/ui/divine-logo';
 import { ParticleBackground } from '@/components/3d/particle-background';
 import { initScrollAnimations } from '@/lib/gsap-animations';
-import { useTranslation } from '@/hooks/use-translation';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export const HeroSection = () => {
-  const { t } = useTranslation();
-  
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     initScrollAnimations();
@@ -41,13 +38,18 @@ export const HeroSection = () => {
           
           <div className="cinematic-entrance" style={{ animationDelay: '0.3s' }}>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-thin mb-6 md:mb-8 leading-tight tracking-tight text-[#080000]">
-              {t.hero.title}
+              The <span className="font-light italic">Future</span> of
+              <br />
+              <span className="font-semibold from-[hsl(var(--google-blue))] via-[hsl(var(--google-green))] to-[hsl(var(--google-yellow))] bg-clip-text neural-glow text-[#080808b0] bg-[#ff000000]">
+                Web Development
+              </span>
             </h1>
           </div>
           
           <div className="cinematic-entrance" style={{ animationDelay: '0.6s' }}>
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-12 md:mb-16 max-w-3xl md:max-w-5xl mx-auto font-light leading-relaxed text-[#4f4a4a]">
-              {t.hero.subtitle}
+              We craft <span className="font-medium text-blue-300">impossible</span> digital experiences that 
+              transcend expectations and redefine what's possible in web development.
             </p>
           </div>
           
@@ -59,7 +61,7 @@ export const HeroSection = () => {
               magneticStrength={0.6}
             >
               <span className="flex items-center gap-3">
-                <span>{t.hero.cta}</span>
+                <span>Experience the Impossible</span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
