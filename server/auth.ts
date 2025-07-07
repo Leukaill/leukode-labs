@@ -1,6 +1,7 @@
-import { adminDb } from './firebase-admin';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import fs from 'fs/promises';
+import path from 'path';
 
 interface AdminUser {
   id: string;
@@ -19,15 +20,47 @@ interface CreateAdminData {
 }
 
 const JWT_SECRET = process.env.JWT_SECRET || 'arc-labs-luxury-admin-secret-2025';
-const ADMIN_COLLECTION = 'admin_users';
+const ADMIN_FILE_PATH = path.join(process.cwd(), 'data', 'admin.json');
 
 export class AdminAuth {
+  // Ensure data directory exists
+  private async ensureDataDir(): Promise<void> {
+    const dataDir = path.dirname(ADMIN_FILE_PATH);
+    try {
+      await fs.mkdir(dataDir, { recursive: true });
+    } catch (error) {
+      // Directory might already exist
+    }
+  }
+
+  // Read admin data from file
+  private async readAdminData(): Promise<AdminUser | null> {
+    try {
+      await this.ensureDataDir();
+      const data = await fs.readFile(ADMIN_FILE_PATH, 'utf-8');
+      return JSON.parse(data);
+    } catch (error) {
+      return null; // File doesn't exist or is invalid
+    }
+  }
+
+  // Write admin data to file
+  private async writeAdminData(admin: AdminUser): Promise<void> {
+    try {
+      await this.ensureDataDir();
+      await fs.writeFile(ADMIN_FILE_PATH, JSON.stringify(admin, null, 2));
+    } catch (error) {
+      console.error('Error writing admin data:', error);
+      throw error;
+    }
+  }
+
   // Create the single admin user (only one allowed)
   async createAdmin(adminData: CreateAdminData): Promise<AdminUser> {
     try {
       // Check if any admin already exists
-      const snapshot = await adminDb.collection(ADMIN_COLLECTION).limit(1).get();
-      if (!snapshot.empty) {
+      const existingAdmin = await this.readAdminData();
+      if (existingAdmin) {
         throw new Error('An admin user already exists. Only one admin is allowed.');
       }
 
@@ -35,7 +68,8 @@ export class AdminAuth {
       const saltRounds = 12;
       const hashedPassword = await bcrypt.hash(adminData.password, saltRounds);
 
-      const admin: Omit<AdminUser, 'id'> = {
+      const admin: AdminUser = {
+        id: 'admin-' + Date.now(),
         username: adminData.username,
         password: hashedPassword,
         email: adminData.email,
@@ -43,8 +77,9 @@ export class AdminAuth {
         createdAt: new Date()
       };
 
-      const docRef = await adminDb.collection(ADMIN_COLLECTION).add(admin);
-      return { id: docRef.id, ...admin };
+      await this.writeAdminData(admin);
+      console.log('Admin user created successfully:', adminData.username);
+      return admin;
     } catch (error) {
       console.error('Error creating admin:', error);
       throw error;
@@ -66,9 +101,8 @@ export class AdminAuth {
       }
 
       // Update last login
-      await adminDb.collection(ADMIN_COLLECTION).doc(admin.id).update({
-        lastLogin: new Date()
-      });
+      admin.lastLogin = new Date();
+      await this.writeAdminData(admin);
 
       // Generate JWT token
       const token = jwt.sign(
@@ -101,18 +135,11 @@ export class AdminAuth {
   // Get admin by username
   private async getAdminByUsername(username: string): Promise<AdminUser | null> {
     try {
-      const snapshot = await adminDb
-        .collection(ADMIN_COLLECTION)
-        .where('username', '==', username)
-        .limit(1)
-        .get();
-
-      if (snapshot.empty) {
-        return null;
+      const admin = await this.readAdminData();
+      if (admin && admin.username === username) {
+        return admin;
       }
-
-      const doc = snapshot.docs[0];
-      return { id: doc.id, ...doc.data() } as AdminUser;
+      return null;
     } catch (error) {
       console.error('Error getting admin by username:', error);
       return null;
@@ -122,11 +149,11 @@ export class AdminAuth {
   // Check if admin exists (used to determine if registration is allowed)
   async adminExists(): Promise<boolean> {
     try {
-      const snapshot = await adminDb.collection(ADMIN_COLLECTION).limit(1).get();
-      return !snapshot.empty;
+      const admin = await this.readAdminData();
+      return admin !== null;
     } catch (error) {
       console.error('Error checking admin existence:', error);
-      return true; // Return true to prevent registration on error
+      return false; // Return false to allow registration if file system fails
     }
   }
 }
