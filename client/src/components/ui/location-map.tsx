@@ -35,9 +35,8 @@ export const LocationMap = ({ isOpen, onClose }: LocationMapProps) => {
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
-            <div className="w-full max-w-4xl max-h-[90vh] overflow-hidden"
-          ></motion.div>
-            <GlassmorphismCard className="p-0 overflow-hidden">
+            <div className="w-full max-w-4xl max-h-[90vh] overflow-hidden">
+              <GlassmorphismCard className="p-0 overflow-hidden">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-white/10">
                   <div className="flex items-center space-x-3">
