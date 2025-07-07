@@ -4,120 +4,69 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export const initScrollAnimations = () => {
-  // Logo transition from hero to navbar
-  ScrollTrigger.create({
-    trigger: '.hero-logo',
-    start: 'bottom center',
-    end: 'bottom top',
-    scrub: 1,
-    onUpdate: self => {
-      const heroLogo = document.querySelector('.hero-logo');
-      const navbarLogo = document.querySelector('.navbar-logo');
-      
-      if (heroLogo && navbarLogo) {
-        const progress = self.progress;
-        
-        // Animate hero logo out
-        gsap.set(heroLogo, {
-          opacity: 1 - progress,
-          scale: 1 - progress * 0.2
-        });
-        
-        // Animate navbar logo in
-        gsap.set(navbarLogo, {
-          opacity: progress,
-          scale: 0.8 + progress * 0.2
-        });
+  // Reduced, performance-optimized animations
+  
+  // Simple hero fade-in only
+  const heroTitle = document.querySelector('.hero-title');
+  if (heroTitle) {
+    gsap.fromTo(heroTitle, 
+      { opacity: 0, y: 30 },
+      { 
+        opacity: 1, 
+        y: 0, 
+        duration: 0.8, 
+        ease: 'power2.out'
       }
-    }
-  });
+    );
+  }
 
-  // Hero section animations
-  gsap.fromTo('.hero-title', 
-    { opacity: 0, y: 100 },
-    { 
-      opacity: 1, 
-      y: 0, 
-      duration: 1.2, 
-      ease: 'power3.out',
-      stagger: 0.2 
-    }
-  );
-
-  gsap.fromTo('.hero-subtitle', 
-    { opacity: 0, y: 50 },
-    { 
-      opacity: 1, 
-      y: 0, 
-      duration: 1, 
-      delay: 0.5, 
-      ease: 'power3.out' 
-    }
-  );
-
-  gsap.fromTo('.hero-buttons', 
-    { opacity: 0, y: 30 },
-    { 
-      opacity: 1, 
-      y: 0, 
-      duration: 0.8, 
-      delay: 0.8, 
-      ease: 'power3.out' 
-    }
-  );
-
-  // Service cards animation
-  gsap.fromTo('.service-card',
-    { opacity: 0, y: 80, scale: 0.9 },
-    {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.8,
-      ease: 'power3.out',
-      stagger: 0.1,
-      scrollTrigger: {
-        trigger: '.services-section',
-        start: 'top 80%',
-        end: 'bottom 20%',
-        toggleActions: 'play none none reverse'
+  const heroSubtitle = document.querySelector('.hero-subtitle');
+  if (heroSubtitle) {
+    gsap.fromTo(heroSubtitle, 
+      { opacity: 0, y: 20 },
+      { 
+        opacity: 1, 
+        y: 0, 
+        duration: 0.6, 
+        delay: 0.2, 
+        ease: 'power2.out' 
       }
-    }
-  );
+    );
+  }
 
-  // Benefits animation
-  gsap.fromTo('.benefit-card',
-    { opacity: 0, x: -50 },
-    {
-      opacity: 1,
-      x: 0,
-      duration: 0.6,
-      ease: 'power2.out',
-      stagger: 0.15,
-      scrollTrigger: {
-        trigger: '.benefits-section',
-        start: 'top 75%',
-        toggleActions: 'play none none reverse'
+  const heroButtons = document.querySelector('.hero-buttons');
+  if (heroButtons) {
+    gsap.fromTo(heroButtons, 
+      { opacity: 0, y: 20 },
+      { 
+        opacity: 1, 
+        y: 0, 
+        duration: 0.6, 
+        delay: 0.4, 
+        ease: 'power2.out' 
       }
-    }
-  );
+    );
+  }
 
-  // Portfolio items
-  gsap.fromTo('.portfolio-item',
-    { opacity: 0, scale: 0.8 },
-    {
-      opacity: 1,
-      scale: 1,
-      duration: 0.7,
-      ease: 'back.out(1.7)',
-      stagger: 0.1,
-      scrollTrigger: {
-        trigger: '.portfolio-section',
-        start: 'top 70%',
-        toggleActions: 'play none none reverse'
+  // Reduced portfolio animation
+  const portfolioItems = document.querySelectorAll('.portfolio-item');
+  if (portfolioItems.length > 0) {
+    gsap.fromTo(portfolioItems,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: 'power2.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: '.portfolio-section',
+          start: 'top 80%',
+          toggleActions: 'play none none none'
+        }
       }
-    }
-  );
+    );
+  }
 };
 
 export const createMagneticEffect = (element: HTMLElement, strength: number = 0.3) => {

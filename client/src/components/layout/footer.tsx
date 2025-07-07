@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'wouter';
 import { NewsletterModal } from '@/components/ui/newsletter-modal';
+import { LocationMap } from '@/components/ui/location-map';
+import { MapPinIcon } from '@heroicons/react/24/outline';
 
 export const Footer = () => {
   const [isNewsletterOpen, setIsNewsletterOpen] = useState(false);
+  const [isLocationOpen, setIsLocationOpen] = useState(false);
   
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -29,15 +32,18 @@ export const Footer = () => {
               Premier web development agency specializing in modern, scalable solutions that drive business growth and exceed expectations.
             </p>
             <div className="flex space-x-4">
-              <a href="mailto:hello@arclabs.dev" className="text-gray-400 hover:text-white transition-colors duration-200">
+              <a href="mailto:lucienshungofficial@gmail.com" className="text-gray-400 hover:text-white transition-colors duration-200">
                 <span className="material-icons">email</span>
               </a>
-              <a href="tel:+1-555-0123" className="text-gray-400 hover:text-white transition-colors duration-200">
+              <a href="tel:+250798516334" className="text-gray-400 hover:text-white transition-colors duration-200">
                 <span className="material-icons">phone</span>
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
-                <span className="material-icons">location_on</span>
-              </a>
+              <button 
+                onClick={() => setIsLocationOpen(true)}
+                className="text-gray-400 hover:text-white transition-colors duration-200"
+              >
+                <MapPinIcon className="w-5 h-5" />
+              </button>
             </div>
           </div>
           
@@ -135,6 +141,9 @@ export const Footer = () => {
       
       {/* Newsletter Modal */}
       <NewsletterModal isOpen={isNewsletterOpen} onClose={() => setIsNewsletterOpen(false)} />
+      
+      {/* Location Map Modal */}
+      <LocationMap isOpen={isLocationOpen} onClose={() => setIsLocationOpen(false)} />
     </footer>
   );
 };

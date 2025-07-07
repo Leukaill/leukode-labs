@@ -12,7 +12,7 @@ const packages = [
   {
     name: 'Professional Starter',
     description: 'Premium Web Solutions',
-    price: '$15,000',
+    price: '$1,200',
     icon: RocketLaunchIcon,
     gradient: 'from-blue-600 to-blue-700',
     features: [
@@ -33,7 +33,7 @@ const packages = [
   {
     name: 'Enterprise Professional',
     description: 'Complete Digital Transformation',
-    price: '$45,000',
+    price: '$4,500',
     icon: CpuChipIcon,
     gradient: 'from-indigo-600 to-indigo-700',
     features: [
@@ -56,7 +56,7 @@ const packages = [
   {
     name: 'Divine Impossible',
     description: 'Transcendent Digital Experience',
-    price: '$100,000',
+    price: '$12,000',
     icon: StarIcon,
     gradient: 'from-purple-600 to-purple-700',
     features: [

@@ -397,7 +397,7 @@ export default function PackageDetail() {
                   size="xl"
                   className="border-white/30 text-white hover:bg-white/10"
                   onClick={() => {
-                    window.location.href = 'mailto:contact@arclabs.com?subject=Package Inquiry: ' + packageInfo.name;
+                    window.location.href = 'mailto:lucienshungofficial@gmail.com?subject=Package Inquiry: ' + packageInfo.name;
                   }}
                 >
                   Schedule Consultation

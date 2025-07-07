@@ -4,13 +4,16 @@ import { MagneticButton } from '@/components/ui/magnetic-button';
 import { DivineLogo } from '@/components/ui/divine-logo';
 import { SearchModal } from '@/components/ui/search-modal';
 import { NewsletterModal } from '@/components/ui/newsletter-modal';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { DynamicIsland } from '@/components/ui/dynamic-island';
+import { LocationMap } from '@/components/ui/location-map';
+import { MagnifyingGlassIcon, MapPinIcon } from '@heroicons/react/24/outline';
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNewsletterOpen, setIsNewsletterOpen] = useState(false);
+  const [isLocationOpen, setIsLocationOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,8 +47,16 @@ export const Navbar = () => {
 
   return (
     <>
+      {/* Dynamic Island for both mobile and desktop */}
+      <DynamicIsland 
+        isScrolled={isScrolled}
+        onSearchOpen={() => setIsSearchOpen(true)}
+        onMenuToggle={() => setIsMenuOpen(!isMenuOpen)}
+        isMenuOpen={isMenuOpen}
+      />
+
       {/* Mobile Dynamic Island */}
-      <nav className="md:hidden fixed top-4 left-4 right-4 z-50">
+      <nav className="md:hidden fixed top-4 left-4 right-4 z-40">
         <div className="liquid-glassmorphism rounded-full shadow-lg px-4 py-2 border border-white/20 h-12">
           <div className="flex items-center justify-between h-full">
             {/* Logo */}
@@ -234,6 +245,9 @@ export const Navbar = () => {
       
       {/* Newsletter Modal */}
       <NewsletterModal isOpen={isNewsletterOpen} onClose={() => setIsNewsletterOpen(false)} />
+      
+      {/* Location Map Modal */}
+      <LocationMap isOpen={isLocationOpen} onClose={() => setIsLocationOpen(false)} />
     </>
   );
 };
