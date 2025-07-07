@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'wouter';
 import { ArrowLeftIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { GlassmorphismCard } from '@/components/ui/glassmorphism-card';
 import { MagneticButton } from '@/components/ui/magnetic-button';
+import { useFirebaseProjects } from '@/hooks/use-firebase-projects';
 
 interface Project {
   id: number;
@@ -15,28 +16,11 @@ interface Project {
   createdAt: Date;
 }
 
-const categories = ['All', 'E-commerce', 'Corporate', 'SaaS', 'Creative', 'Healthcare', 'Finance'];
+const categories = ['All', 'E-commerce', 'Analytics', 'Healthcare', 'Fintech', 'Education', 'Real Estate', 'Food & Beverage', 'Travel & Tourism', 'Gaming & Entertainment'];
 
 export default function PortfolioShowcase() {
-  const [projects, setProjects] = useState<Project[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await fetch('/api/projects');
-        const data = await response.json();
-        setProjects(data);
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
+  const { projects, loading, error } = useFirebaseProjects();
 
   const filteredProjects = selectedCategory === 'All' 
     ? projects 
@@ -46,6 +30,17 @@ export default function PortfolioShowcase() {
     return (
       <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-black flex items-center justify-center">
         <div className="text-white text-xl">Loading our masterpieces...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-black flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-red-400 text-xl mb-4">Unable to load portfolio</div>
+          <div className="text-white/60">Please try refreshing the page</div>
+        </div>
       </div>
     );
   }
