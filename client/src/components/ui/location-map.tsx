@@ -33,22 +33,24 @@ export const LocationMap = ({ isOpen, onClose }: LocationMapProps) => {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-4xl mx-4 max-h-[90vh] overflow-hidden"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
+            <div className="w-full max-w-4xl max-h-[90vh] overflow-hidden"
+          ></motion.div>
             <GlassmorphismCard className="p-0 overflow-hidden">
-              {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-white/10">
-                <div className="flex items-center space-x-3">
-                  <MapPinIcon className="w-6 h-6 text-blue-400" />
-                  <h2 className="text-xl font-semibold text-white">Our Location</h2>
+                {/* Header */}
+                <div className="flex items-center justify-between p-6 border-b border-white/10">
+                  <div className="flex items-center space-x-3">
+                    <MapPinIcon className="w-6 h-6 text-blue-400" />
+                    <h2 className="text-xl font-semibold text-white">Our Location</h2>
+                  </div>
+                  <button
+                    onClick={onClose}
+                    className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                  >
+                    <XMarkIcon className="w-5 h-5 text-white" />
+                  </button>
                 </div>
-                <button
-                  onClick={onClose}
-                  className="p-2 rounded-full hover:bg-white/10 transition-colors"
-                >
-                  <XMarkIcon className="w-5 h-5 text-white" />
-                </button>
-              </div>
 
               <div className="grid md:grid-cols-2 gap-0">
                 {/* Map Section */}
@@ -159,7 +161,8 @@ export const LocationMap = ({ isOpen, onClose }: LocationMapProps) => {
                   </div>
                 </div>
               </div>
-            </GlassmorphismCard>
+              </GlassmorphismCard>
+            </div>
           </motion.div>
         </>
       )}

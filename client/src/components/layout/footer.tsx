@@ -28,19 +28,19 @@ export const Footer = () => {
               </div>
               <span className="text-xl font-medium">Arc Labs</span>
             </Link>
-            <p className="text-gray-200 mb-6 max-w-md">
+            <p className="text-white mb-6 max-w-md font-medium">
               Premier web development agency specializing in modern, scalable solutions that drive business growth and exceed expectations.
             </p>
             <div className="flex space-x-4">
-              <a href="mailto:lucienshungofficial@gmail.com" className="text-gray-400 hover:text-white transition-colors duration-200">
+              <a href="mailto:lucienshungofficial@gmail.com" className="text-white hover:text-blue-400 transition-colors duration-200">
                 <span className="material-icons">email</span>
               </a>
-              <a href="tel:+250798516334" className="text-gray-400 hover:text-white transition-colors duration-200">
+              <a href="tel:+250798516334" className="text-white hover:text-green-400 transition-colors duration-200">
                 <span className="material-icons">phone</span>
               </a>
               <button 
                 onClick={() => setIsLocationOpen(true)}
-                className="text-gray-400 hover:text-white transition-colors duration-200"
+                className="text-white hover:text-blue-400 transition-colors duration-200"
               >
                 <MapPinIcon className="w-5 h-5" />
               </button>
@@ -54,7 +54,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('services')}
-                  className="text-gray-200 hover:text-white transition-colors duration-200"
+                  className="text-white hover:text-blue-400 transition-colors duration-200 font-medium"
                 >
                   Web Applications
                 </button>
@@ -62,7 +62,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('services')}
-                  className="text-gray-200 hover:text-white transition-colors duration-200"
+                  className="text-white hover:text-blue-400 transition-colors duration-200 font-medium"
                 >
                   E-commerce
                 </button>
@@ -70,7 +70,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('services')}
-                  className="text-gray-200 hover:text-white transition-colors duration-200"
+                  className="text-white hover:text-blue-400 transition-colors duration-200 font-medium"
                 >
                   Mobile Development
                 </button>
@@ -78,7 +78,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('contact')}
-                  className="text-gray-200 hover:text-white transition-colors duration-200"
+                  className="text-white hover:text-blue-400 transition-colors duration-200 font-medium"
                 >
                   Consulting
                 </button>
@@ -92,7 +92,7 @@ export const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <Link href="/about">
-                  <button className="text-gray-200 hover:text-white transition-colors duration-200">
+                  <button className="text-white hover:text-blue-400 transition-colors duration-200 font-medium">
                     About Us
                   </button>
                 </Link>
@@ -100,7 +100,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('portfolio')}
-                  className="text-gray-200 hover:text-white transition-colors duration-200"
+                  className="text-white hover:text-blue-400 transition-colors duration-200 font-medium"
                 >
                   Portfolio
                 </button>
@@ -108,7 +108,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('contact')}
-                  className="text-gray-200 hover:text-white transition-colors duration-200"
+                  className="text-white hover:text-blue-400 transition-colors duration-200 font-medium"
                 >
                   Careers
                 </button>
@@ -116,7 +116,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('contact')}
-                  className="text-gray-200 hover:text-white transition-colors duration-200"
+                  className="text-white hover:text-blue-400 transition-colors duration-200 font-medium"
                 >
                   Contact
                 </button>
@@ -124,7 +124,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => setIsNewsletterOpen(true)}
-                  className="text-gray-200 hover:text-white transition-colors duration-200"
+                  className="text-white hover:text-blue-400 transition-colors duration-200 font-medium"
                 >
                   Newsletter
                 </button>
@@ -134,8 +134,8 @@ export const Footer = () => {
           
         </div>
         
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-300">
-          <p>&copy; 2025 Arc Labs. All rights reserved. Built with cutting-edge technology and attention to detail.</p>
+        <div className="border-t border-gray-700 mt-12 pt-8 text-center text-white">
+          <p className="font-medium">&copy; 2025 Arc Labs. All rights reserved. Built with cutting-edge technology and attention to detail.</p>
         </div>
       </div>
       
