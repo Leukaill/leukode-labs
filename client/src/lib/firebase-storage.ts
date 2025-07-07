@@ -1,45 +1,46 @@
 import { 
-  type User, 
-  type InsertUser,
-  type Project,
-  type InsertProject,
-  type ContactSubmission,
-  type InsertContact
-} from "@shared/schema";
-import { adminDb } from "./firebase-admin";
+  collection, 
+  doc, 
+  getDocs, 
+  getDoc, 
+  addDoc, 
+  updateDoc, 
+  deleteDoc, 
+  query, 
+  where, 
+  orderBy, 
+  limit,
+  serverTimestamp,
+  DocumentData,
+  QuerySnapshot,
+  DocumentSnapshot
+} from 'firebase/firestore';
+import { db } from './firebase';
+import type { 
+  User, 
+  InsertUser, 
+  Project, 
+  InsertProject, 
+  ContactSubmission, 
+  InsertContact 
+} from '@shared/schema';
 
-export interface IStorage {
-  getUser(id: number): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
-  
-  getProjects(): Promise<Project[]>;
-  getFeaturedProjects(): Promise<Project[]>;
-  getProject(id: number): Promise<Project | undefined>;
-  createProject(project: InsertProject): Promise<Project>;
-  
-  createContactSubmission(contact: InsertContact): Promise<ContactSubmission>;
-  getContactSubmissions(): Promise<ContactSubmission[]>;
-}
+// Collections
+const COLLECTIONS = {
+  USERS: 'users',
+  PROJECTS: 'projects',
+  CONTACTS: 'contacts'
+} as const;
 
-export class FirebaseStorage implements IStorage {
-  private readonly COLLECTIONS = {
-    USERS: 'users',
-    PROJECTS: 'projects',
-    CONTACTS: 'contacts'
-  } as const;
-
-  constructor() {
-    // Initialize with sample projects on first run
-    this.initializeSampleData();
-  }
-
+export class FirebaseStorage {
   // User operations
-  async getUser(id: number): Promise<User | undefined> {
+  async getUser(id: string): Promise<User | undefined> {
     try {
-      const doc = await adminDb.collection(this.COLLECTIONS.USERS).doc(id.toString()).get();
-      if (doc.exists) {
-        return { id: parseInt(doc.id), ...doc.data() } as User;
+      const docRef = doc(db, COLLECTIONS.USERS, id);
+      const docSnap = await getDoc(docRef);
+      
+      if (docSnap.exists()) {
+        return { id: docSnap.id, ...docSnap.data() } as User;
       }
       return undefined;
     } catch (error) {
@@ -50,14 +51,16 @@ export class FirebaseStorage implements IStorage {
 
   async getUserByUsername(username: string): Promise<User | undefined> {
     try {
-      const snapshot = await adminDb.collection(this.COLLECTIONS.USERS)
-        .where('username', '==', username)
-        .limit(1)
-        .get();
+      const q = query(
+        collection(db, COLLECTIONS.USERS), 
+        where('username', '==', username),
+        limit(1)
+      );
+      const querySnapshot = await getDocs(q);
       
-      if (!snapshot.empty) {
-        const doc = snapshot.docs[0];
-        return { id: parseInt(doc.id), ...doc.data() } as User;
+      if (!querySnapshot.empty) {
+        const doc = querySnapshot.docs[0];
+        return { id: doc.id, ...doc.data() } as User;
       }
       return undefined;
     } catch (error) {
@@ -66,17 +69,17 @@ export class FirebaseStorage implements IStorage {
     }
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
+  async createUser(user: InsertUser): Promise<User> {
     try {
       const userWithTimestamp = {
-        ...insertUser,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        ...user,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
       };
       
-      const docRef = await adminDb.collection(this.COLLECTIONS.USERS).add(userWithTimestamp);
-      const user: User = { id: parseInt(docRef.id), ...insertUser };
-      return user;
+      const docRef = await addDoc(collection(db, COLLECTIONS.USERS), userWithTimestamp);
+      const newUser = { id: docRef.id, ...user } as User;
+      return newUser;
     } catch (error) {
       console.error('Error creating user:', error);
       throw error;
@@ -86,11 +89,13 @@ export class FirebaseStorage implements IStorage {
   // Project operations
   async getProjects(): Promise<Project[]> {
     try {
-      const snapshot = await adminDb.collection(this.COLLECTIONS.PROJECTS)
-        .orderBy('createdAt', 'desc')
-        .get();
+      const q = query(
+        collection(db, COLLECTIONS.PROJECTS),
+        orderBy('createdAt', 'desc')
+      );
+      const querySnapshot = await getDocs(q);
       
-      return snapshot.docs.map(doc => ({
+      return querySnapshot.docs.map(doc => ({
         id: parseInt(doc.id),
         ...doc.data(),
         createdAt: doc.data().createdAt?.toDate() || new Date()
@@ -103,13 +108,15 @@ export class FirebaseStorage implements IStorage {
 
   async getFeaturedProjects(): Promise<Project[]> {
     try {
-      const snapshot = await adminDb.collection(this.COLLECTIONS.PROJECTS)
-        .where('featured', '==', true)
-        .orderBy('createdAt', 'desc')
-        .limit(6)
-        .get();
+      const q = query(
+        collection(db, COLLECTIONS.PROJECTS),
+        where('featured', '==', true),
+        orderBy('createdAt', 'desc'),
+        limit(6)
+      );
+      const querySnapshot = await getDocs(q);
       
-      return snapshot.docs.map(doc => ({
+      return querySnapshot.docs.map(doc => ({
         id: parseInt(doc.id),
         ...doc.data(),
         createdAt: doc.data().createdAt?.toDate() || new Date()
@@ -122,12 +129,14 @@ export class FirebaseStorage implements IStorage {
 
   async getProject(id: number): Promise<Project | undefined> {
     try {
-      const doc = await adminDb.collection(this.COLLECTIONS.PROJECTS).doc(id.toString()).get();
-      if (doc.exists) {
+      const docRef = doc(db, COLLECTIONS.PROJECTS, id.toString());
+      const docSnap = await getDoc(docRef);
+      
+      if (docSnap.exists()) {
         return {
-          id: parseInt(doc.id),
-          ...doc.data(),
-          createdAt: doc.data().createdAt?.toDate() || new Date()
+          id: parseInt(docSnap.id),
+          ...docSnap.data(),
+          createdAt: docSnap.data().createdAt?.toDate() || new Date()
         } as Project;
       }
       return undefined;
@@ -137,21 +146,21 @@ export class FirebaseStorage implements IStorage {
     }
   }
 
-  async createProject(insertProject: InsertProject): Promise<Project> {
+  async createProject(project: InsertProject): Promise<Project> {
     try {
       const projectWithTimestamp = {
-        ...insertProject,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        ...project,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
       };
       
-      const docRef = await adminDb.collection(this.COLLECTIONS.PROJECTS).add(projectWithTimestamp);
-      const project: Project = { 
+      const docRef = await addDoc(collection(db, COLLECTIONS.PROJECTS), projectWithTimestamp);
+      const newProject = { 
         id: parseInt(docRef.id), 
-        ...insertProject,
+        ...project,
         createdAt: new Date()
-      };
-      return project;
+      } as Project;
+      return newProject;
     } catch (error) {
       console.error('Error creating project:', error);
       throw error;
@@ -159,21 +168,21 @@ export class FirebaseStorage implements IStorage {
   }
 
   // Contact operations
-  async createContactSubmission(insertContact: InsertContact): Promise<ContactSubmission> {
+  async createContactSubmission(contact: InsertContact): Promise<ContactSubmission> {
     try {
       const contactWithTimestamp = {
-        ...insertContact,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        ...contact,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
       };
       
-      const docRef = await adminDb.collection(this.COLLECTIONS.CONTACTS).add(contactWithTimestamp);
-      const contact: ContactSubmission = { 
+      const docRef = await addDoc(collection(db, COLLECTIONS.CONTACTS), contactWithTimestamp);
+      const newContact = { 
         id: parseInt(docRef.id), 
-        ...insertContact,
+        ...contact,
         createdAt: new Date()
-      };
-      return contact;
+      } as ContactSubmission;
+      return newContact;
     } catch (error) {
       console.error('Error creating contact submission:', error);
       throw error;
@@ -182,11 +191,13 @@ export class FirebaseStorage implements IStorage {
 
   async getContactSubmissions(): Promise<ContactSubmission[]> {
     try {
-      const snapshot = await adminDb.collection(this.COLLECTIONS.CONTACTS)
-        .orderBy('createdAt', 'desc')
-        .get();
+      const q = query(
+        collection(db, COLLECTIONS.CONTACTS),
+        orderBy('createdAt', 'desc')
+      );
+      const querySnapshot = await getDocs(q);
       
-      return snapshot.docs.map(doc => ({
+      return querySnapshot.docs.map(doc => ({
         id: parseInt(doc.id),
         ...doc.data(),
         createdAt: doc.data().createdAt?.toDate() || new Date()
@@ -198,12 +209,12 @@ export class FirebaseStorage implements IStorage {
   }
 
   // Initialize sample data for demonstration
-  private async initializeSampleData(): Promise<void> {
+  async initializeSampleData(): Promise<void> {
     try {
       // Check if projects already exist
       const existingProjects = await this.getProjects();
       if (existingProjects.length > 0) {
-        console.log('Sample data already exists in Firebase');
+        console.log('Sample data already exists');
         return;
       }
 
@@ -264,16 +275,16 @@ export class FirebaseStorage implements IStorage {
         }
       ];
 
-      // Create sample projects in Firebase
+      // Create sample projects
       for (const project of sampleProjects) {
         await this.createProject(project as InsertProject);
       }
 
-      console.log('Sample data initialized successfully in Firebase');
+      console.log('Sample data initialized successfully');
     } catch (error) {
       console.error('Error initializing sample data:', error);
     }
   }
 }
 
-export const storage = new FirebaseStorage();
+export const firebaseStorage = new FirebaseStorage();
