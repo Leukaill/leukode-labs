@@ -1,147 +1,87 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { setupVite, serveStatic, log } from "./vite";
-import { getFirestore } from 'firebase-admin/firestore';
-import { initializeApp } from 'firebase-admin/app';
-
-// Initialize Firebase Admin
-const app = initializeApp({
-  projectId: "leukail-tech"
-});
-const db = getFirestore(app);
+import { storage } from "./storage";
+import { insertContactSchema, insertProjectSchema } from "@shared/schema";
+import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Projects API routes with Firebase
+  // Get all projects
   app.get("/api/projects", async (req, res) => {
     try {
-      const snapshot = await db.collection('arc_labs_projects').orderBy('createdAt', 'desc').get();
-      const projects = snapshot.docs.map(doc => ({
-        id: parseInt(doc.id),
-        ...doc.data(),
-        createdAt: doc.data().createdAt?.toDate() || new Date()
-      }));
-      
-      log(`📊 Fetched ${projects.length} projects from Firestore`);
+      const projects = await storage.getProjects();
       res.json(projects);
     } catch (error) {
-      console.error('Error fetching projects from Firestore:', error);
-      // Fallback to the local storage
-      try {
-        const { storage } = await import("./storage");
-        const projects = await storage.getProjects();
-        log(`📊 Fallback: Fetched ${projects.length} projects from local storage`);
-        res.json(projects);
-      } catch (fallbackError) {
-        console.error('Fallback also failed:', fallbackError);
-        res.status(500).json({ error: 'Failed to fetch projects' });
-      }
+      res.status(500).json({ message: "Failed to fetch projects" });
     }
   });
 
+  // Get featured projects
   app.get("/api/projects/featured", async (req, res) => {
     try {
-      const snapshot = await db.collection('arc_labs_projects')
-        .where('featured', '==', true)
-        .orderBy('createdAt', 'desc')
-        .limit(6)
-        .get();
-      
-      const projects = snapshot.docs.map(doc => ({
-        id: parseInt(doc.id),
-        ...doc.data(),
-        createdAt: doc.data().createdAt?.toDate() || new Date()
-      }));
-      
-      log(`⭐ Fetched ${projects.length} featured projects from Firestore`);
+      const projects = await storage.getFeaturedProjects();
       res.json(projects);
     } catch (error) {
-      console.error('Error fetching featured projects from Firestore:', error);
-      // Fallback to the local storage
-      try {
-        const { storage } = await import("./storage");
-        const projects = await storage.getFeaturedProjects();
-        log(`⭐ Fallback: Fetched ${projects.length} featured projects from local storage`);
-        res.json(projects);
-      } catch (fallbackError) {
-        console.error('Fallback also failed:', fallbackError);
-        res.status(500).json({ error: 'Failed to fetch featured projects' });
-      }
+      res.status(500).json({ message: "Failed to fetch featured projects" });
     }
   });
 
+  // Get single project
   app.get("/api/projects/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const doc = await db.collection('arc_labs_projects').doc(id.toString()).get();
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid project ID" });
+      }
       
-      if (doc.exists) {
-        const project = {
-          id: parseInt(doc.id),
-          ...doc.data(),
-          createdAt: doc.data().createdAt?.toDate() || new Date()
-        };
-        res.json(project);
-      } else {
-        res.status(404).json({ error: 'Project not found' });
+      const project = await storage.getProject(id);
+      if (!project) {
+        return res.status(404).json({ message: "Project not found" });
       }
+      
+      res.json(project);
     } catch (error) {
-      console.error('Error fetching project from Firestore:', error);
-      // Fallback to the local storage
-      try {
-        const { storage } = await import("./storage");
-        const project = await storage.getProject(parseInt(req.params.id));
-        if (project) {
-          res.json(project);
-        } else {
-          res.status(404).json({ error: 'Project not found' });
-        }
-      } catch (fallbackError) {
-        console.error('Fallback also failed:', fallbackError);
-        res.status(500).json({ error: 'Failed to fetch project' });
-      }
+      res.status(500).json({ message: "Failed to fetch project" });
     }
   });
 
-  // Contact form submission
+  // Create new project
+  app.post("/api/projects", async (req, res) => {
+    try {
+      const projectData = insertProjectSchema.parse(req.body);
+      const project = await storage.createProject(projectData);
+      res.status(201).json(project);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid project data", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to create project" });
+    }
+  });
+
+  // Submit contact form
   app.post("/api/contact", async (req, res) => {
     try {
-      const contactData = {
-        ...req.body,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
-      
-      const docRef = await db.collection('arc_labs_contacts').add(contactData);
-      const contact = { 
-        id: parseInt(docRef.id), 
-        ...req.body,
-        createdAt: new Date()
-      };
-      
-      log(`📧 Contact submission saved to Firestore`);
-      res.json(contact);
+      const contactData = insertContactSchema.parse(req.body);
+      const submission = await storage.createContactSubmission(contactData);
+      res.status(201).json({ message: "Contact form submitted successfully", id: submission.id });
     } catch (error) {
-      console.error('Error saving contact to Firestore:', error);
-      // Fallback to the local storage
-      try {
-        const { storage } = await import("./storage");
-        const contact = await storage.createContactSubmission(req.body);
-        log(`📧 Fallback: Contact submission saved to local storage`);
-        res.json(contact);
-      } catch (fallbackError) {
-        console.error('Fallback also failed:', fallbackError);
-        res.status(500).json({ error: 'Failed to save contact submission' });
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid contact data", errors: error.errors });
       }
+      res.status(500).json({ message: "Failed to submit contact form" });
     }
   });
 
-  const server = createServer(app);
+  // Get contact submissions (admin endpoint)
+  app.get("/api/contact", async (req, res) => {
+    try {
+      const submissions = await storage.getContactSubmissions();
+      res.json(submissions);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch contact submissions" });
+    }
+  });
 
-  if (app.get("env") === "development") {
-    await setupVite(app, server);
-  } else {
-    serveStatic(app);
-  }
-
-  return server;
+  const httpServer = createServer(app);
+  return httpServer;
 }
