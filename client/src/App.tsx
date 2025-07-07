@@ -8,6 +8,7 @@ import PackageDetail from "@/pages/package-detail";
 import PortfolioShowcase from "@/pages/portfolio-showcase";
 import ProjectDetail from "@/pages/project-detail";
 import About from "@/pages/about";
+import AdminDashboard from "@/pages/admin/dashboard";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/portfolio" component={PortfolioShowcase} />
       <Route path="/project/:projectId" component={ProjectDetail} />
       <Route path="/about" component={About} />
+      <Route path="/admin" component={AdminDashboard} />
       <Route component={NotFound} />
     </Switch>
   );

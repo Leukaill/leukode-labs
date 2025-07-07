@@ -17,6 +17,8 @@ export interface IStorage {
   getFeaturedProjects(): Promise<Project[]>;
   getProject(id: number): Promise<Project | undefined>;
   createProject(project: InsertProject): Promise<Project>;
+  updateProject(id: number, project: InsertProject): Promise<Project | null>;
+  deleteProject(id: number): Promise<boolean>;
   
   createContactSubmission(contact: InsertContact): Promise<ContactSubmission>;
   getContactSubmissions(): Promise<ContactSubmission[]>;
@@ -155,6 +157,51 @@ export class FirebaseStorage implements IStorage {
     } catch (error) {
       console.error('Error creating project:', error);
       throw error;
+    }
+  }
+
+  async updateProject(id: number, insertProject: InsertProject): Promise<Project | null> {
+    try {
+      const docRef = adminDb.collection(this.COLLECTIONS.PROJECTS).doc(id.toString());
+      const doc = await docRef.get();
+      
+      if (!doc.exists) {
+        return null;
+      }
+      
+      const updateData = {
+        ...insertProject,
+        updatedAt: new Date()
+      };
+      
+      await docRef.update(updateData);
+      
+      const updatedDoc = await docRef.get();
+      return {
+        id: parseInt(updatedDoc.id),
+        ...updatedDoc.data(),
+        createdAt: updatedDoc.data().createdAt?.toDate() || new Date()
+      } as Project;
+    } catch (error) {
+      console.error('Error updating project:', error);
+      throw error;
+    }
+  }
+
+  async deleteProject(id: number): Promise<boolean> {
+    try {
+      const docRef = adminDb.collection(this.COLLECTIONS.PROJECTS).doc(id.toString());
+      const doc = await docRef.get();
+      
+      if (!doc.exists) {
+        return false;
+      }
+      
+      await docRef.delete();
+      return true;
+    } catch (error) {
+      console.error('Error deleting project:', error);
+      return false;
     }
   }
 

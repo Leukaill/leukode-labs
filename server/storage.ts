@@ -16,6 +16,8 @@ export interface IStorage {
   getFeaturedProjects(): Promise<Project[]>;
   getProject(id: number): Promise<Project | undefined>;
   createProject(project: InsertProject): Promise<Project>;
+  updateProject(id: number, project: InsertProject): Promise<Project | null>;
+  deleteProject(id: number): Promise<boolean>;
   
   createContactSubmission(contact: InsertContact): Promise<ContactSubmission>;
   getContactSubmissions(): Promise<ContactSubmission[]>;
@@ -195,6 +197,27 @@ export class FallbackStorage implements IStorage {
     };
     this.projects.set(id, project);
     return project;
+  }
+
+  async updateProject(id: number, insertProject: InsertProject): Promise<Project | null> {
+    const existingProject = this.projects.get(id);
+    if (!existingProject) {
+      return null;
+    }
+    
+    const updatedProject: Project = {
+      ...existingProject,
+      ...insertProject,
+      id: existingProject.id, // Keep original ID
+      createdAt: existingProject.createdAt // Keep original creation date
+    };
+    
+    this.projects.set(id, updatedProject);
+    return updatedProject;
+  }
+
+  async deleteProject(id: number): Promise<boolean> {
+    return this.projects.delete(id);
   }
 
   // Contact operations
