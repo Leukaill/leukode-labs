@@ -28,7 +28,7 @@ export const Footer = () => {
               </div>
               <span className="text-xl font-medium">Arc Labs</span>
             </Link>
-            <p className="text-gray-300 mb-6 max-w-md">
+            <p className="text-gray-200 mb-6 max-w-md">
               Premier web development agency specializing in modern, scalable solutions that drive business growth and exceed expectations.
             </p>
             <div className="flex space-x-4">
@@ -54,7 +54,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('services')}
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
+                  className="text-gray-200 hover:text-white transition-colors duration-200"
                 >
                   Web Applications
                 </button>
@@ -62,7 +62,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('services')}
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
+                  className="text-gray-200 hover:text-white transition-colors duration-200"
                 >
                   E-commerce
                 </button>
@@ -70,7 +70,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('services')}
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
+                  className="text-gray-200 hover:text-white transition-colors duration-200"
                 >
                   Mobile Development
                 </button>
@@ -78,7 +78,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('contact')}
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
+                  className="text-gray-200 hover:text-white transition-colors duration-200"
                 >
                   Consulting
                 </button>
@@ -92,7 +92,7 @@ export const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <Link href="/about">
-                  <button className="text-gray-300 hover:text-white transition-colors duration-200">
+                  <button className="text-gray-200 hover:text-white transition-colors duration-200">
                     About Us
                   </button>
                 </Link>
@@ -100,7 +100,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('portfolio')}
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
+                  className="text-gray-200 hover:text-white transition-colors duration-200"
                 >
                   Portfolio
                 </button>
@@ -108,7 +108,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('contact')}
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
+                  className="text-gray-200 hover:text-white transition-colors duration-200"
                 >
                   Careers
                 </button>
@@ -116,7 +116,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => scrollToSection('contact')}
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
+                  className="text-gray-200 hover:text-white transition-colors duration-200"
                 >
                   Contact
                 </button>
@@ -124,7 +124,7 @@ export const Footer = () => {
               <li>
                 <button 
                   onClick={() => setIsNewsletterOpen(true)}
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
+                  className="text-gray-200 hover:text-white transition-colors duration-200"
                 >
                   Newsletter
                 </button>
@@ -134,7 +134,7 @@ export const Footer = () => {
           
         </div>
         
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-300">
           <p>&copy; 2025 Arc Labs. All rights reserved. Built with cutting-edge technology and attention to detail.</p>
         </div>
       </div>
