@@ -1,5 +1,4 @@
-// Fallback auth storage for development
-const adminUsers = new Map<string, any>();
+import { adminDb } from './firebase-admin';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -23,21 +22,20 @@ const JWT_SECRET = process.env.JWT_SECRET || 'arc-labs-luxury-admin-secret-2025'
 const ADMIN_COLLECTION = 'admin_users';
 
 export class AdminAuth {
-  // Create the single admin user (run once during setup)
+  // Create the single admin user (only one allowed)
   async createAdmin(adminData: CreateAdminData): Promise<AdminUser> {
     try {
-      // Check if admin already exists
-      const existingAdmin = await this.getAdminByUsername(adminData.username);
-      if (existingAdmin) {
-        throw new Error('Admin user already exists');
+      // Check if any admin already exists
+      const snapshot = await adminDb.collection(ADMIN_COLLECTION).limit(1).get();
+      if (!snapshot.empty) {
+        throw new Error('An admin user already exists. Only one admin is allowed.');
       }
 
       // Hash password
       const saltRounds = 12;
       const hashedPassword = await bcrypt.hash(adminData.password, saltRounds);
 
-      const admin: AdminUser = {
-        id: 'admin-1',
+      const admin: Omit<AdminUser, 'id'> = {
         username: adminData.username,
         password: hashedPassword,
         email: adminData.email,
@@ -45,8 +43,8 @@ export class AdminAuth {
         createdAt: new Date()
       };
 
-      adminUsers.set(adminData.username, admin);
-      return admin;
+      const docRef = await adminDb.collection(ADMIN_COLLECTION).add(admin);
+      return { id: docRef.id, ...admin };
     } catch (error) {
       console.error('Error creating admin:', error);
       throw error;
@@ -68,8 +66,9 @@ export class AdminAuth {
       }
 
       // Update last login
-      admin.lastLogin = new Date();
-      adminUsers.set(admin.username, admin);
+      await adminDb.collection(ADMIN_COLLECTION).doc(admin.id).update({
+        lastLogin: new Date()
+      });
 
       // Generate JWT token
       const token = jwt.sign(
@@ -102,27 +101,32 @@ export class AdminAuth {
   // Get admin by username
   private async getAdminByUsername(username: string): Promise<AdminUser | null> {
     try {
-      return adminUsers.get(username) || null;
+      const snapshot = await adminDb
+        .collection(ADMIN_COLLECTION)
+        .where('username', '==', username)
+        .limit(1)
+        .get();
+
+      if (snapshot.empty) {
+        return null;
+      }
+
+      const doc = snapshot.docs[0];
+      return { id: doc.id, ...doc.data() } as AdminUser;
     } catch (error) {
       console.error('Error getting admin by username:', error);
       return null;
     }
   }
 
-  // Initialize default admin if none exists
-  async initializeDefaultAdmin(): Promise<void> {
+  // Check if admin exists (used to determine if registration is allowed)
+  async adminExists(): Promise<boolean> {
     try {
-      if (adminUsers.size === 0) {
-        console.log('Creating default admin user...');
-        await this.createAdmin({
-          username: 'admin',
-          password: 'ArcLabs2025!',
-          email: 'lucienshungofficial@gmail.com'
-        });
-        console.log('Default admin created: username=admin, password=ArcLabs2025!');
-      }
+      const snapshot = await adminDb.collection(ADMIN_COLLECTION).limit(1).get();
+      return !snapshot.empty;
     } catch (error) {
-      console.error('Error initializing default admin:', error);
+      console.error('Error checking admin existence:', error);
+      return true; // Return true to prevent registration on error
     }
   }
 }

@@ -10,8 +10,58 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Enable cookie parsing for auth
   app.use(cookieParser());
   
-  // Initialize admin user if doesn't exist
-  await adminAuth.initializeDefaultAdmin();
+  // Check admin registration status
+  app.get("/api/admin/registration-status", async (req, res) => {
+    try {
+      const adminExists = await adminAuth.adminExists();
+      res.json({ 
+        adminExists,
+        registrationAllowed: !adminExists 
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to check registration status" });
+    }
+  });
+
+  // Admin registration route
+  app.post("/api/admin/register", async (req, res) => {
+    try {
+      const { username, password, email } = req.body;
+      
+      if (!username || !password || !email) {
+        return res.status(400).json({ message: "Username, password, and email are required" });
+      }
+
+      // Check if admin already exists
+      const adminExists = await adminAuth.adminExists();
+      if (adminExists) {
+        return res.status(409).json({ message: "An admin user already exists. Only one admin is allowed." });
+      }
+
+      const admin = await adminAuth.createAdmin({ username, password, email });
+      
+      // Generate token for immediate login
+      const token = await adminAuth.authenticateAdmin(username, password);
+      
+      res.cookie('admin_token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 24 * 60 * 60 * 1000,
+        sameSite: 'strict'
+      });
+
+      res.status(201).json({ 
+        message: "Admin account created successfully",
+        token,
+        admin: { id: admin.id, username: admin.username, email: admin.email }
+      });
+    } catch (error) {
+      console.error('Registration error:', error);
+      res.status(400).json({ 
+        message: error instanceof Error ? error.message : "Failed to create admin account" 
+      });
+    }
+  });
 
   // Admin authentication routes
   app.post("/api/admin/login", async (req, res) => {

@@ -129,7 +129,19 @@ export function AdminProtectedRoute({ children }: { children: ReactNode }) {
   
   if (!isAuthenticated) {
     if (typeof window !== 'undefined') {
-      window.location.href = '/admin/login';
+      // Check if we should redirect to register instead of login
+      fetch('/api/admin/registration-status')
+        .then(res => res.json())
+        .then(data => {
+          if (data.registrationAllowed) {
+            window.location.href = '/admin/register';
+          } else {
+            window.location.href = '/admin/login';
+          }
+        })
+        .catch(() => {
+          window.location.href = '/admin/login';
+        });
     }
     return null;
   }

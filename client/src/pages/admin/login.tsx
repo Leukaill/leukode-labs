@@ -170,9 +170,17 @@ export default function AdminLogin() {
             className="mt-8 text-center"
           >
             <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-4" />
-            <p className="text-white/40 text-xs">
+            <p className="text-white/40 text-xs mb-2">
               Authorized personnel only • Secured by Arc Labs
             </p>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setLocation('/admin/register')}
+              className="text-white/60 hover:text-white"
+            >
+              Need to create an admin account?
+            </Button>
           </motion.div>
         </HolographicCard>
       </motion.div>
