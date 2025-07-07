@@ -4,7 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Pencil, Plus, Trash2, Eye, BarChart3, Settings, Target, Globe, Users, Activity } from 'lucide-react';
+import { Pencil, Plus, Trash2, Eye, BarChart3, Settings, Target, Globe, Users, Activity, LogOut, Shield } from 'lucide-react';
+import { useAdminAuth } from '@/hooks/use-admin-auth';
+import { useToast } from '@/hooks/use-toast';
 import { ProjectEditModal } from './project-edit-modal';
 import { AnalyticsPanel } from './analytics';
 import { BulkOperationsPanel } from './bulk-operations';
@@ -18,6 +20,8 @@ export default function AdminDashboard() {
   const [isCreating, setIsCreating] = useState(false);
   
   const queryClient = useQueryClient();
+  const { logout, admin } = useAdminAuth();
+  const { toast } = useToast();
 
   const { data: projects, isLoading } = useQuery({
     queryKey: ['admin-projects'],
@@ -66,6 +70,18 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast({
+        title: "Logged out",
+        description: "You have been successfully logged out",
+      });
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-violet-900/30 flex items-center justify-center">
@@ -85,9 +101,26 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-violet-900/30">
       <div className="p-6">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Comprehensive Admin Dashboard</h1>
-          <p className="text-gray-300">Complete portfolio management, analytics, and optimization tools</p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-4xl font-bold text-white mb-2">Comprehensive Admin Dashboard</h1>
+            <p className="text-gray-300">Complete portfolio management, analytics, and optimization tools</p>
+          </div>
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 text-white/80">
+              <Shield className="w-4 h-4" />
+              <span className="text-sm">{admin?.username || 'Admin'}</span>
+            </div>
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              size="sm"
+              className="bg-white/5 border-white/20 text-white hover:bg-white/10"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Logout
+            </Button>
+          </div>
         </div>
 
         {/* Quick Stats Overview */}

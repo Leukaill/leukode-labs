@@ -2,9 +2,55 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactSchema, insertProjectSchema } from "@shared/schema";
+import { adminAuth, requireAdminAuth } from "./auth";
+import cookieParser from "cookie-parser";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Enable cookie parsing for auth
+  app.use(cookieParser());
+  
+  // Initialize admin user if doesn't exist
+  await adminAuth.initializeDefaultAdmin();
+
+  // Admin authentication routes
+  app.post("/api/admin/login", async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      
+      if (!username || !password) {
+        return res.status(400).json({ message: "Username and password required" });
+      }
+
+      const token = await adminAuth.authenticateAdmin(username, password);
+      
+      if (!token) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+
+      // Set secure cookie
+      res.cookie('admin_token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        sameSite: 'strict'
+      });
+
+      res.json({ token, message: "Authentication successful" });
+    } catch (error) {
+      console.error('Login error:', error);
+      res.status(500).json({ message: "Authentication failed" });
+    }
+  });
+
+  app.post("/api/admin/logout", (req, res) => {
+    res.clearCookie('admin_token');
+    res.json({ message: "Logged out successfully" });
+  });
+
+  app.get("/api/admin/verify", requireAdminAuth, (req, res) => {
+    res.json({ valid: true, admin: req.admin });
+  });
   // Get all projects
   app.get("/api/projects", async (req, res) => {
     try {
@@ -44,8 +90,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Create new project
-  app.post("/api/projects", async (req, res) => {
+  // Create new project (protected route)
+  app.post("/api/projects", requireAdminAuth, async (req, res) => {
     try {
       const projectData = insertProjectSchema.parse(req.body);
       const project = await storage.createProject(projectData);
@@ -58,8 +104,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Update project
-  app.put("/api/projects/:id", async (req, res) => {
+  // Update project (protected route)
+  app.put("/api/projects/:id", requireAdminAuth, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
       if (isNaN(id)) {
@@ -82,8 +128,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Delete project
-  app.delete("/api/projects/:id", async (req, res) => {
+  // Delete project (protected route)
+  app.delete("/api/projects/:id", requireAdminAuth, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
       if (isNaN(id)) {

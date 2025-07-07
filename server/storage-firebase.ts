@@ -141,15 +141,21 @@ export class FirebaseStorage implements IStorage {
 
   async createProject(insertProject: InsertProject): Promise<Project> {
     try {
+      // Generate a numeric ID for consistency
+      const snapshot = await adminDb.collection(this.COLLECTIONS.PROJECTS).get();
+      const nextId = snapshot.size + 1;
+      
       const projectWithTimestamp = {
         ...insertProject,
+        id: nextId,
         createdAt: new Date(),
         updatedAt: new Date()
       };
       
-      const docRef = await adminDb.collection(this.COLLECTIONS.PROJECTS).add(projectWithTimestamp);
+      await adminDb.collection(this.COLLECTIONS.PROJECTS).doc(nextId.toString()).set(projectWithTimestamp);
+      
       const project: Project = { 
-        id: parseInt(docRef.id), 
+        id: nextId, 
         ...insertProject,
         createdAt: new Date()
       };
