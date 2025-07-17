@@ -232,16 +232,16 @@ export const WhyUsSection = () => {
   };
 
   return (
-    <section id="why-us" className="benefits-section py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-slate-900 to-black">
+    <section id="why-us" className="benefits-section py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-white via-[hsl(var(--gray-50))] to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-12 md:mb-20">
           <div className="cinematic-entrance">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 md:mb-8 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 md:mb-8 tracking-tight">
               Why Choose <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">Arc Labs</span>
             </h2>
           </div>
           <div className="cinematic-entrance" style={{ animationDelay: '0.3s' }}>
-            <p className="text-lg sm:text-xl md:text-2xl text-white/70 max-w-3xl md:max-w-4xl mx-auto font-medium leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-slate-700 max-w-3xl md:max-w-4xl mx-auto font-medium leading-relaxed">
               We deliver exceptional results through expertise, innovation, and unwavering commitment to your success.
             </p>
           </div>
