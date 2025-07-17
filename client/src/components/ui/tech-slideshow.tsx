@@ -52,8 +52,11 @@ export const TechSlideshow = () => {
               className="w-full h-full object-cover"
             />
             
+            {/* Enhanced consistent overlay for text readability */}
+            <div className="absolute inset-0 bg-black/60" />
+            
             {/* Luxury gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/50" />
             
             {/* Additional cinematic overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 via-transparent to-purple-900/20" />

@@ -45,17 +45,17 @@ export const HeroSection = () => {
           </div>
           
           <div className="cinematic-entrance" style={{ animationDelay: '0.3s' }}>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-thin mb-6 md:mb-8 leading-tight tracking-tight text-white drop-shadow-2xl">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-thin mb-6 md:mb-8 leading-tight tracking-tight text-white" style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8), 0 8px 40px rgba(0,0,0,0.6)' }}>
               The <span className="font-light italic">Future</span> of
               <br />
-              <span className="font-semibold bg-gradient-to-r from-blue-400 via-green-300 to-yellow-300 bg-clip-text text-transparent drop-shadow-2xl">
+              <span className="font-semibold bg-gradient-to-r from-blue-400 via-green-300 to-yellow-300 bg-clip-text text-transparent" style={{ filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.8)) drop-shadow(0 8px 40px rgba(0,0,0,0.6))' }}>
                 Web Development
               </span>
             </h1>
           </div>
           
           <div className="cinematic-entrance" style={{ animationDelay: '0.6s' }}>
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-12 md:mb-16 max-w-3xl md:max-w-5xl mx-auto font-light leading-relaxed text-gray-200 drop-shadow-lg">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-12 md:mb-16 max-w-3xl md:max-w-5xl mx-auto font-light leading-relaxed text-gray-200" style={{ textShadow: '0 4px 16px rgba(0,0,0,0.7), 0 6px 30px rgba(0,0,0,0.5)' }}>
               We craft <span className="font-medium text-blue-300">impossible</span> digital experiences that 
               transcend expectations and redefine what's possible in web development.
             </p>
