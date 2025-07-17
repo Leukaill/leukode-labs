@@ -145,6 +145,45 @@ const projectDetails: Record<number, ProjectDetail> = {
       author: "Jennifer Park",
       position: "Portfolio Manager, NexGen Capital"
     }
+  },
+  9: {
+    id: 9,
+    title: "Denyse AI Assistant",
+    description: "Enterprise-grade AI assistant with complete data privacy through local LLM deployment",
+    longDescription: "A revolutionary corporate AI assistant that prioritizes absolute data privacy. Deployed entirely on local infrastructure, Denyse provides intelligent document analysis, report generation, and knowledge management without compromising sensitive corporate information.",
+    imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    category: "Enterprise Solutions",
+    completionDate: "January 2025",
+    duration: "3 months",
+    challenges: [
+      "Ensuring 100% data privacy with local LLM deployment",
+      "Complex document analysis across multiple file formats",
+      "Real-time knowledge base integration and management",
+      "Scalable enterprise architecture for multiple users"
+    ],
+    solutions: [
+      "Custom local LLM integration with enterprise-grade security",
+      "Advanced document processing engine for PDFs, DOCX, and more",
+      "Intelligent knowledge sharing system with granular permissions",
+      "Seamless user authentication and access control"
+    ],
+    results: [
+      "100% data privacy maintained with zero external data transmission",
+      "85% reduction in document analysis time",
+      "Enhanced corporate knowledge accessibility and sharing",
+      "Significant improvement in decision-making efficiency"
+    ],
+    metrics: [
+      { label: "Data Privacy", value: "100%" },
+      { label: "Processing Speed", value: "3x faster" },
+      { label: "User Adoption", value: "95%" },
+      { label: "Security Score", value: "A+" }
+    ],
+    testimonial: {
+      quote: "Denyse has transformed how we handle sensitive documents while maintaining complete control over our data. The privacy-first approach is exactly what our enterprise needed.",
+      author: "Marcus Thompson",
+      position: "Chief Information Officer, SecureTech Solutions"
+    }
   }
 };
 

@@ -136,6 +136,17 @@ export class FallbackStorage implements IStorage {
         metrics: "500K+ active gamers, 1M+ tournaments",
         featured: true,
         createdAt: new Date()
+      },
+      {
+        id: 9,
+        title: "Denyse AI Assistant",
+        description: "Enterprise-grade AI assistant with complete data privacy through local LLM deployment",
+        imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+        category: "Enterprise Solutions",
+        technologies: ["Local LLM", "Document Analysis", "Enterprise Security", "Knowledge Management"],
+        metrics: "100% data privacy with enterprise-grade AI capabilities",
+        featured: true,
+        createdAt: new Date()
       }
     ];
 
