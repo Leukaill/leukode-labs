@@ -1,0 +1,79 @@
+🚀 Denyse AI Assistant - Your Enterprise-Grade AI Companion
+Revolutionize Your Organization with Complete Data Privacy
+Denyse AI Assistant is not just another AI chatbot—it's a comprehensive, multi-task artificial intelligence platform designed specifically for organizations that demand absolute data privacy and enterprise-grade security.
+
+🔒 Total Privacy. Zero Compromise.
+Unlike cloud-based AI solutions that send your sensitive data to external servers, Denyse runs 24/7 on your company's own servers. Your confidential documents, strategic reports, and proprietary knowledge never leave your infrastructure. This isn't just privacy—it's data sovereignty.
+
+🎯 Designed for Every Role in Your Organization
+Whether you're a CEO analyzing quarterly reports, a project manager tracking deliverables, an analyst processing research data, or a compliance officer reviewing regulatory documents, Denyse adapts to your specific role and understands your unique organizational context.
+
+⚡ Unprecedented Multi-Task Intelligence
+Document Processing Excellence:
+
+PDF, DOCX, DOC, TXT analysis with advanced text extraction
+Intelligent document search with semantic understanding
+Real-time file processing with 50MB capacity per upload
+48-hour automatic cleanup for security compliance
+Advanced Report Generation:
+
+Monitoring & Evaluation (M&E) specialization with OECD-DAC standards
+Six specialized report types: Baseline, Progress, Outcome, Impact, Evaluation, Framework Assessment
+Intelligent questioning system that asks clarifying questions before generating reports
+Downloadable reports in multiple formats (TXT, HTML, Markdown, JSON, CSV)
+Enterprise Knowledge Management:
+
+Organization-wide knowledge base with your company's institutional memory
+Contextual search across all uploaded documents and company knowledge
+Vector embeddings for semantic similarity matching
+Automated content organization and categorization
+🛡️ Enterprise-Grade Security Architecture
+Local LLM Integration - No external AI API dependencies
+Session-based authentication with PostgreSQL session store
+Rate limiting protection against abuse and overload
+Malicious content detection and file validation
+Directory traversal protection and secure file handling
+Encrypted data transmission with enterprise-grade protocols
+✨ Beautiful, Intuitive User Experience
+Liquid glass morphism design with smooth animations
+Google Gemini-inspired interface for familiar usability
+Responsive design optimized for desktop and mobile
+Dark/light mode support with system preference detection
+Real-time chat interface with typing indicators
+Professional message formatting with intelligent paragraph breaking
+🔧 Technical Excellence
+Modern TypeScript architecture with full-stack type safety
+React + Vite frontend with hot module replacement
+Express.js backend with comprehensive error handling
+PostgreSQL database with Drizzle ORM for data integrity
+TanStack Query for efficient data fetching and caching
+Tailwind CSS with shadcn/ui components for consistent styling
+📊 Real-World Impact
+Perfect for organizations that need:
+
+Regulatory compliance with data residency requirements
+Strategic document analysis without data leakage concerns
+Professional report generation with industry-standard frameworks
+Knowledge management across teams and departments
+Scalable AI deployment that grows with your organization
+🎯 Why Choose Denyse?
+For IT Directors: Deploy with confidence knowing your data stays in-house
+For C-Suite Executives: Get strategic insights without compromising competitive advantage
+For Compliance Officers: Meet regulatory requirements with built-in data protection
+For Team Leaders: Empower your teams with AI that understands your organization
+For Security Teams: Rest assured with enterprise-grade security by design
+
+Ready to transform your organization with truly private AI?
+
+Denyse AI Assistant delivers the power of cutting-edge artificial intelligence while ensuring your most sensitive data remains exactly where it belongs—in your complete control.
+
+Experience the future of enterprise AI, designed for organizations that refuse to compromise on privacy.
+
+Migration completed successfully! All BPN references have been removed and replaced with generic, marketable terms. The application is now fully operational in the Replit environment with:
+
+✅ PostgreSQL database set up and migrated
+✅ All packages installed and working
+✅ Express server running on port 5000
+✅ All BPN brand references removed
+✅ Marketable description created
+✅ Enterprise-ready privacy-focused positioning
