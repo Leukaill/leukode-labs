@@ -151,7 +151,7 @@ const projectDetails: Record<number, ProjectDetail> = {
     title: "Denyse AI Assistant",
     description: "Enterprise-grade AI assistant with complete data privacy through local LLM deployment",
     longDescription: "A revolutionary corporate AI assistant that prioritizes absolute data privacy. Deployed entirely on local infrastructure, Denyse provides intelligent document analysis, report generation, and knowledge management without compromising sensitive corporate information.",
-    imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    imageUrl: "/images/projects/denyse-login.png",
     category: "Enterprise Solutions",
     completionDate: "January 2025",
     duration: "3 months",
