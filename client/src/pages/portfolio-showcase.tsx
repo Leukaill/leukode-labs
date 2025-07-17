@@ -16,7 +16,7 @@ interface Project {
   createdAt: Date;
 }
 
-const categories = ['All', 'E-commerce', 'Analytics', 'Healthcare', 'Fintech', 'Education', 'Real Estate', 'Food & Beverage', 'Travel & Tourism', 'Gaming & Entertainment'];
+const categories = ['All', 'E-commerce', 'Analytics', 'Healthcare', 'Fintech', 'Education', 'Real Estate', 'Food & Beverage', 'Travel & Tourism', 'Gaming & Entertainment', 'Enterprise Solutions'];
 
 export default function PortfolioShowcase() {
   const [selectedCategory, setSelectedCategory] = useState('All');
