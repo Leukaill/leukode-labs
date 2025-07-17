@@ -86,13 +86,13 @@ export const PackagesSection = () => {
   };
 
   return (
-    <section id="packages" className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-br from-slate-50 to-white">
+    <section id="packages" className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-br from-slate-800 via-slate-900 to-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-12 md:mb-20">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 md:mb-8 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 md:mb-8 tracking-tight">
             Professional <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">Solutions</span>
           </h2>
-          <p className="text-lg sm:text-xl md:text-2xl text-slate-700 max-w-3xl md:max-w-4xl mx-auto font-medium leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-white/70 max-w-3xl md:max-w-4xl mx-auto font-medium leading-relaxed">
             Choose the perfect package for your business needs. Each solution delivers exceptional results.
           </p>
         </div>

@@ -10,7 +10,7 @@ import { GoogleReviewsWidget } from '@/components/ui/google-reviews';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-black">
       <Navbar />
       <main>
         <HeroSection />
