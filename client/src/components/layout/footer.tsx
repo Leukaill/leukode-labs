@@ -16,14 +16,14 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-[hsl(var(--gray-900))] text-white py-16">
+    <footer className="bg-gray-900 text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-4 gap-8">
           
           {/* Company Info */}
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center space-x-2 mb-6">
-              <div className="w-8 h-8 bg-[hsl(var(--google-blue))] rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
                 <span className="material-icons text-white text-lg">rocket_launch</span>
               </div>
               <span className="text-xl font-medium">Arc Labs</span>
