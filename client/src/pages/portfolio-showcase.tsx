@@ -150,19 +150,15 @@ export default function PortfolioShowcase() {
                     </div>
                   )}
 
-                  {/* Action Button */}
+                  {/* Action Info */}
                   <div className="flex justify-between items-center">
                     <span className="text-white/60 text-sm">
                       {new Date(project.createdAt).getFullYear()}
                     </span>
                     
-                    <MagneticButton
-                      variant="outline"
-                      size="sm"
-                      className="text-white border-white/30 hover:bg-white/10"
-                    >
-                      View Details
-                    </MagneticButton>
+                    <span className="text-blue-400 text-sm font-medium group-hover:text-blue-300 transition-colors">
+                      View Details →
+                    </span>
                   </div>
                 </div>
                 </GlassmorphismCard>
