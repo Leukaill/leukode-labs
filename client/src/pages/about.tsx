@@ -3,6 +3,7 @@ import { ArrowLeftIcon, EyeIcon, SparklesIcon, ShieldCheckIcon } from '@heroicon
 import { GlassmorphismCard } from '@/components/ui/glassmorphism-card';
 import { MagneticButton } from '@/components/ui/magnetic-button';
 import { ParticleBackground } from '@/components/3d/particle-background';
+import { BackToTop } from '@/components/ui/back-to-top';
 
 export default function About() {
   return (
@@ -183,6 +184,8 @@ export default function About() {
           </div>
         </div>
       </div>
+      
+      <BackToTop />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { PackagesSection } from '@/components/sections/packages';
 import { PortfolioSection } from '@/components/sections/portfolio';
 import { ContactSection } from '@/components/sections/contact';
 import { GoogleReviewsWidget } from '@/components/ui/google-reviews';
+import { BackToTop } from '@/components/ui/back-to-top';
 
 export default function Home() {
   return (
@@ -40,6 +41,7 @@ export default function Home() {
         <ContactSection />
       </main>
       <Footer />
+      <BackToTop />
     </div>
   );
 }
