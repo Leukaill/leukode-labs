@@ -6,18 +6,18 @@ export const LeukodeLabsLogo = ({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' | '
   // Removed animations as requested
 
   const sizes = {
-    sm: { container: 'w-8 h-8', svg: 'w-5 h-5' },
-    md: { container: 'w-12 h-12', svg: 'w-7 h-7' },
-    lg: { container: 'w-16 h-16', svg: 'w-10 h-10' },
-    xl: { container: 'w-24 h-24', svg: 'w-14 h-14' }
+    sm: { container: 'w-12 h-12' },
+    md: { container: 'w-16 h-16' },
+    lg: { container: 'w-20 h-20' },
+    xl: { container: 'w-28 h-28' }
   };
 
   return (
-    <div className={`relative ${sizes[size].container}`}>
+    <div className={`relative ${sizes[size].container} flex items-center justify-center`}>
       <img 
         src="/leukode-logo.png" 
         alt="Leukode Labs"
-        className="w-full h-full object-contain"
+        className="w-full h-full object-contain filter drop-shadow-sm hover:drop-shadow-md transition-all duration-200"
       />
     </div>
   );
