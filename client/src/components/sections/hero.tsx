@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { MagneticButton } from '@/components/ui/magnetic-button';
-import { DivineLogo } from '@/components/ui/divine-logo';
+
 import { ParticleBackground } from '@/components/3d/particle-background';
 import { TechSlideshow } from '@/components/ui/tech-slideshow';
 import { initScrollAnimations } from '@/lib/gsap-animations';
@@ -39,11 +39,6 @@ export const HeroSection = () => {
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center">
-          <div className="mb-8 md:mb-16 hero-logo">
-            <DivineLogo size="lg" className="md:hidden" />
-            <DivineLogo size="xl" className="hidden md:block" />
-          </div>
-          
           <div className="cinematic-entrance" style={{ animationDelay: '0.3s' }}>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-thin mb-6 md:mb-8 leading-tight tracking-tight text-white" style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8), 0 8px 40px rgba(0,0,0,0.6)' }}>
               The <span className="font-light italic">Future</span> of
