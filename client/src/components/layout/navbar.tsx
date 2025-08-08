@@ -70,7 +70,9 @@ export const Navbar = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Link href="/" className="flex items-center">
-                <LeukodeLabsLogo size="sm" />
+                <span className="text-sm font-semibold tracking-wide text-black/90">
+                  Leukode <span className="font-light">Labs</span>
+                </span>
               </Link>
             </motion.div>
             
@@ -139,8 +141,7 @@ export const Navbar = () => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 whileHover={{ scale: 1.02 }}
               >
-                <Link href="/" className="flex items-center space-x-3 group">
-                  <LeukodeLabsLogo size="md" />
+                <Link href="/" className="flex items-center group">
                   <span className="text-xl font-semibold tracking-wide text-black/90 group-hover:text-blue-600 transition-colors duration-300">
                     Leukode <span className="font-light">Labs</span>
                   </span>
