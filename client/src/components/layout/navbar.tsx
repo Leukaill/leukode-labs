@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MagneticButton } from '@/components/ui/magnetic-button';
-import { DivineLogo } from '@/components/ui/divine-logo';
+import { LeukodeLabsLogo } from '@/components/ui/leukode-labs-logo';
 import { SearchModal } from '@/components/ui/search-modal';
 import { NewsletterModal } from '@/components/ui/newsletter-modal';
 import { LocationMap } from '@/components/ui/location-map';
@@ -70,7 +70,7 @@ export const Navbar = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Link href="/" className="flex items-center">
-                <DivineLogo size="sm" />
+                <LeukodeLabsLogo size="sm" />
               </Link>
             </motion.div>
             
@@ -140,7 +140,7 @@ export const Navbar = () => {
                 whileHover={{ scale: 1.02 }}
               >
                 <Link href="/" className="flex items-center space-x-3 group">
-                  <DivineLogo size="md" />
+                  <LeukodeLabsLogo size="md" />
                   <span className="text-xl font-semibold tracking-wide text-black/90 group-hover:text-blue-600 transition-colors duration-300">
                     Leukode <span className="font-light">Labs</span>
                   </span>
