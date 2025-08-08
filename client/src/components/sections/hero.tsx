@@ -30,12 +30,11 @@ export const HeroSection = () => {
         <ParticleBackground />
       </div>
       
-      {/* Cinematic Background Effects */}
+      {/* Static Background Effects - Better Performance */}
       <div className="absolute inset-0 overflow-hidden z-[2]">
-        {/* Gradient Orbs with increased opacity for visibility over slideshow */}
-        <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-[hsl(var(--google-blue))]/20 to-transparent rounded-full blur-3xl levitating"></div>
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-r from-[hsl(var(--google-green))]/20 to-transparent rounded-full blur-3xl levitating" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-gradient-to-r from-[hsl(var(--google-yellow))]/15 to-transparent rounded-full blur-3xl levitating" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-[hsl(var(--google-blue))]/10 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-r from-[hsl(var(--google-green))]/10 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-gradient-to-r from-[hsl(var(--google-yellow))]/8 to-transparent rounded-full blur-3xl"></div>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center">
@@ -61,7 +60,7 @@ export const HeroSection = () => {
               variant="impossible"
               size="xl" 
               onClick={() => scrollToSection('contact')}
-              magneticStrength={0.6}
+              magneticStrength={0.2}
             >
               <span className="flex items-center gap-3">
                 <span>Experience the Impossible</span>

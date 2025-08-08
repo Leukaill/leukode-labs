@@ -226,7 +226,7 @@ export const Navbar = () => {
                     variant="primary"
                     size="sm"
                     onClick={() => scrollToSection('contact')}
-                    magneticStrength={0.5}
+                    magneticStrength={0.2}
                   >
                     Start Project
                   </MagneticButton>

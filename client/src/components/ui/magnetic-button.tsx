@@ -30,7 +30,7 @@ const MagneticButton = forwardRef<HTMLButtonElement, MagneticButtonProps>(
       <button
         ref={magneticRef as any}
         className={cn(
-          'rounded-full relative overflow-hidden transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) transform-gpu predictive-hint',
+          'rounded-full relative overflow-hidden transition-all duration-300 ease-out transform-gpu will-change-transform',
           variants[variant],
           sizes[size],
           className

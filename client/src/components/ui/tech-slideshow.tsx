@@ -61,11 +61,9 @@ export const TechSlideshow = () => {
             {/* Additional cinematic overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 via-transparent to-purple-900/20" />
             
-            {/* Animated scan lines for tech effect */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="h-full w-full relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent h-32 animate-scan" />
-              </div>
+            {/* Static tech effect for better performance */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="h-full w-full bg-gradient-to-b from-transparent via-white/10 to-transparent" />
             </div>
           </div>
         </motion.div>
