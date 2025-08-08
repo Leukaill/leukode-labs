@@ -142,7 +142,7 @@ export const Navbar = () => {
                 <Link href="/" className="flex items-center space-x-3 group">
                   <DivineLogo size="md" />
                   <span className="text-xl font-semibold tracking-wide text-black/90 group-hover:text-blue-600 transition-colors duration-300">
-                    Arc <span className="font-light">Labs</span>
+                    Leukode <span className="font-light">Labs</span>
                   </span>
                 </Link>
               </motion.div>

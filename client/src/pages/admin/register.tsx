@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { ArcLabsLogo } from '@/components/ui/arc-labs-logo';
+import { LeukodeLabsLogo } from '@/components/ui/leukode-labs-logo';
 import { ParticleBackground } from '@/components/3d/particle-background';
 import { HolographicCard } from '@/components/3d/holographic-card';
 import { AlertCircle, CheckCircle2 } from 'lucide-react';
@@ -93,7 +93,7 @@ export default function AdminRegister() {
         localStorage.setItem('admin_token', data.token);
         toast({
           title: "Admin account created",
-          description: "Welcome to Arc Labs Admin Dashboard",
+          description: "Welcome to Leukode Labs Admin Dashboard",
         });
         setLocation('/admin');
       } else {
@@ -183,7 +183,7 @@ export default function AdminRegister() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="mb-6"
             >
-              <ArcLabsLogo size="xl" />
+              <LeukodeLabsLogo size="xl" />
             </motion.div>
             
             <motion.div

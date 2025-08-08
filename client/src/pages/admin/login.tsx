@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { ArcLabsLogo } from '@/components/ui/arc-labs-logo';
+import { LeukodeLabsLogo } from '@/components/ui/leukode-labs-logo';
 import { ParticleBackground } from '@/components/3d/particle-background';
 import { HolographicCard } from '@/components/3d/holographic-card';
 
@@ -88,7 +88,7 @@ export default function AdminLogin() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="mb-6"
             >
-              <ArcLabsLogo size="xl" />
+              <LeukodeLabsLogo size="xl" />
             </motion.div>
             
             <motion.div
@@ -171,7 +171,7 @@ export default function AdminLogin() {
           >
             <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-4" />
             <p className="text-white/40 text-xs mb-2">
-              Authorized personnel only • Secured by Arc Labs
+              Authorized personnel only • Secured by Leukode Labs
             </p>
             <Button
               variant="ghost"

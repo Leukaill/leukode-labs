@@ -26,7 +26,7 @@ export const Footer = () => {
               <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
                 <span className="material-icons text-white text-lg">rocket_launch</span>
               </div>
-              <span className="text-xl font-medium">Arc Labs</span>
+              <span className="text-xl font-medium">Leukode Labs</span>
             </Link>
             <p className="text-white mb-6 max-w-md font-medium">
               Premier web development agency specializing in modern, scalable solutions that drive business growth and exceed expectations.
@@ -135,7 +135,7 @@ export const Footer = () => {
         </div>
         
         <div className="border-t border-gray-700 mt-12 pt-8 text-center text-white">
-          <p className="font-medium">&copy; 2025 Arc Labs. All rights reserved. Built with cutting-edge technology and attention to detail.</p>
+          <p className="font-medium">&copy; 2025 Leukode Labs. All rights reserved. Built with cutting-edge technology and attention to detail.</p>
         </div>
       </div>
       

@@ -85,9 +85,9 @@ export const DivineLogo = ({ size = 'md', className }: DivineLogoProps) => {
           y="70"
           textAnchor="middle"
           className="fill-white text-xs font-bold"
-          style={{ fontSize: '8px' }}
+          style={{ fontSize: '6px' }}
         >
-          ARC
+          LEUKODE
         </text>
         
         {/* Orbital Rings */}

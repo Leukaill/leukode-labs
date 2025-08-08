@@ -155,7 +155,7 @@ export default function About() {
             <p className="text-lg text-gray-300 italic mb-4">
               "The future belongs to those who believe in the beauty of their dreams and have the courage to make them reality."
             </p>
-            <div className="text-sm text-gray-400">- Arc Labs Philosophy</div>
+            <div className="text-sm text-gray-400">- Leukode Labs Philosophy</div>
           </div>
         </div>
       </div>
