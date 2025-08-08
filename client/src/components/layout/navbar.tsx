@@ -14,12 +14,61 @@ export const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNewsletterOpen, setIsNewsletterOpen] = useState(false);
   const [isLocationOpen, setIsLocationOpen] = useState(false);
+  const [isDarkBackground, setIsDarkBackground] = useState(false);
 
   useEffect(() => {
+    const detectBackground = () => {
+      // Get navbar position
+      const navbarHeight = 80;
+      
+      // Get elements at navbar position (center of navbar)
+      const elementsAtPosition = document.elementsFromPoint(
+        window.innerWidth / 2,
+        navbarHeight / 2
+      );
+      
+      // Check background colors of elements
+      let isDark = false;
+      for (const element of elementsAtPosition) {
+        // Skip the navbar itself
+        if (element.closest('nav')) continue;
+        
+        const styles = window.getComputedStyle(element);
+        const bgColor = styles.backgroundColor;
+        const hasGradient = styles.backgroundImage && styles.backgroundImage !== 'none';
+        
+        // Check if element has dark background
+        if (bgColor !== 'rgba(0, 0, 0, 0)' && bgColor !== 'transparent') {
+          const rgb = bgColor.match(/\d+/g);
+          if (rgb) {
+            const [r, g, b] = rgb.map(Number);
+            const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+            isDark = brightness < 128;
+            break;
+          }
+        }
+        
+        // Check for dark gradients or specific classes
+        if (hasGradient || 
+            element.classList.contains('bg-slate-900') || 
+            element.classList.contains('bg-black') || 
+            element.classList.contains('bg-gray-900') ||
+            element.tagName === 'IMG') { // Images are often dark in hero
+          isDark = true;
+          break;
+        }
+      }
+      
+      setIsDarkBackground(isDark);
+    };
+
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const heroHeight = window.innerHeight * 0.8;
       setIsScrolled(scrollTop > heroHeight);
+      
+      // Detect background on scroll
+      detectBackground();
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -29,12 +78,31 @@ export const Navbar = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // Initial detection
+    detectBackground();
+
+    // Throttled scroll handler for performance
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', throttledHandleScroll);
     document.addEventListener('keydown', handleKeyDown);
     
+    // Also detect on resize
+    window.addEventListener('resize', detectBackground);
+    
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', throttledHandleScroll);
       document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', detectBackground);
     };
   }, []);
 
@@ -71,7 +139,9 @@ export const Navbar = () => {
             >
               <Link href="/" className="flex items-center space-x-2">
                 <LeukodeLabsLogo size="sm" />
-                <span className="text-sm font-semibold tracking-wide text-black/90">
+                <span className={`text-sm font-semibold tracking-wide transition-colors duration-300 ${
+                  isDarkBackground ? 'text-white/90' : 'text-black/90'
+                }`}>
                   Leukode <span className="font-light">Labs</span>
                 </span>
               </Link>
@@ -82,7 +152,9 @@ export const Navbar = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsSearchOpen(true)}
-                className="w-8 h-8 flex items-center justify-center text-black/80 hover:text-blue-600 transition-colors duration-300"
+                className={`w-8 h-8 flex items-center justify-center transition-colors duration-300 hover:text-blue-600 ${
+                  isDarkBackground ? 'text-white/80' : 'text-black/80'
+                }`}
               >
                 <MagnifyingGlassIcon className="w-5 h-5" />
               </motion.button>
@@ -91,7 +163,9 @@ export const Navbar = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="w-8 h-8 flex items-center justify-center text-black/80 hover:text-blue-600 transition-all duration-300"
+                className={`w-8 h-8 flex items-center justify-center transition-all duration-300 hover:text-blue-600 ${
+                  isDarkBackground ? 'text-white/80' : 'text-black/80'
+                }`}
               >
                 <motion.svg 
                   animate={{ rotate: isMenuOpen ? 180 : 0 }}
@@ -144,7 +218,9 @@ export const Navbar = () => {
               >
                 <Link href="/" className="flex items-center space-x-3 group">
                   <LeukodeLabsLogo size="md" />
-                  <span className="text-xl font-semibold tracking-wide text-black/90 group-hover:text-blue-600 transition-colors duration-300">
+                  <span className={`text-xl font-semibold tracking-wide group-hover:text-blue-600 transition-colors duration-300 ${
+                    isDarkBackground ? 'text-white/90' : 'text-black/90'
+                  }`}>
                     Leukode <span className="font-light">Labs</span>
                   </span>
                 </Link>
@@ -164,7 +240,9 @@ export const Navbar = () => {
                     transition={{ duration: 0.4, delay: 0.1 * index }}
                     whileHover={{ y: -2 }}
                     onClick={() => scrollToSection(section)}
-                    className="text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm relative group"
+                    className={`hover:text-blue-600 transition-all duration-300 font-medium text-sm relative group ${
+                      isDarkBackground ? 'text-white/90' : 'text-black/90'
+                    }`}
                   >
                     {section === 'why-us' ? 'Why Us' : 
                      section === 'packages' ? 'Solutions' : 
@@ -183,7 +261,9 @@ export const Navbar = () => {
                   whileHover={{ y: -2 }}
                 >
                   <Link href="/about">
-                    <button className="text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm relative group">
+                    <button className={`hover:text-blue-600 transition-all duration-300 font-medium text-sm relative group ${
+                      isDarkBackground ? 'text-white/90' : 'text-black/90'
+                    }`}>
                       About
                       <motion.div 
                         className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"
@@ -200,7 +280,9 @@ export const Navbar = () => {
                   whileHover={{ y: -2, scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setIsNewsletterOpen(true)}
-                  className="text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm"
+                  className={`hover:text-blue-600 transition-all duration-300 font-medium text-sm ${
+                    isDarkBackground ? 'text-white/90' : 'text-black/90'
+                  }`}
                 >
                   Newsletter
                 </motion.button>
@@ -212,7 +294,9 @@ export const Navbar = () => {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setIsSearchOpen(true)}
-                  className="text-black/90 hover:text-blue-600 transition-colors duration-300"
+                  className={`hover:text-blue-600 transition-colors duration-300 ${
+                    isDarkBackground ? 'text-white/90' : 'text-black/90'
+                  }`}
                 >
                   <MagnifyingGlassIcon className="w-5 h-5" />
                 </motion.button>
@@ -260,7 +344,9 @@ export const Navbar = () => {
                       scrollToSection(section);
                       setIsMenuOpen(false);
                     }}
-                    className="text-left text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm py-2"
+                    className={`text-left hover:text-blue-600 transition-all duration-300 font-medium text-sm py-2 ${
+                      isDarkBackground ? 'text-white/90' : 'text-black/90'
+                    }`}
                   >
                     {section === 'why-us' ? 'Why Us' : 
                      section === 'packages' ? 'Solutions' : 
@@ -276,7 +362,9 @@ export const Navbar = () => {
                   <Link href="/about">
                     <button 
                       onClick={() => setIsMenuOpen(false)}
-                      className="text-left text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm py-2"
+                      className={`text-left hover:text-blue-600 transition-all duration-300 font-medium text-sm py-2 ${
+                        isDarkBackground ? 'text-white/90' : 'text-black/90'
+                      }`}
                     >
                       About
                     </button>
@@ -292,7 +380,9 @@ export const Navbar = () => {
                     setIsNewsletterOpen(true);
                     setIsMenuOpen(false);
                   }}
-                  className="text-left text-black/90 hover:text-blue-600 transition-all duration-300 font-medium text-sm py-2"
+                  className={`text-left hover:text-blue-600 transition-all duration-300 font-medium text-sm py-2 ${
+                    isDarkBackground ? 'text-white/90' : 'text-black/90'
+                  }`}
                 >
                   Newsletter
                 </motion.button>
